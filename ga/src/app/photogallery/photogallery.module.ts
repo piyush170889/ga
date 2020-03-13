@@ -17,4 +17,4 @@ import { PhotogalleryPage } from './photogallery.page';
   ],
   declarations: [PhotogalleryPage]
 })
-export class PhotogalleryPageModule {}
+export class PhotogalleryPageModule { }

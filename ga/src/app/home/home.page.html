@@ -8,7 +8,7 @@
         <h2>Farin@gmail.com</h2>
       </ion-label>
 
-      <img src="./assets/images/a.jpg" height="10px" width="10px">
+      <img src="./assets/images/a.jpg" height="35px" width="35px">
 
       <ion-button>
         <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
@@ -46,15 +46,15 @@
   <Br>
 
   <div>
-    <b> Student Details</b>
+    <b> Student Details </b>
   </div>
 
 
   <ion-item>
-    <ion-avatar slot="start"> <img src="/assets/images/a.jpg" height="30px" width="30px" routerLink="/" >
+    <ion-avatar slot="start"> <img src="/assets/images/a.jpg" (click)="presentModal()" height="30px" width="30px">
     </ion-avatar>
 
-    <ion-label>
+    <ion-label (click)="StudentDetailsModal()">
       <h2>Name : Farin</h2>
       <h3>Qualification : MSC(CS)</h3>
       <p>City : Nashik</p>
@@ -64,10 +64,10 @@
 
 
   <ion-item>
-    <ion-avatar slot="start"> <img src="/assets/images/a.jpg" height="30px" width="30px">
+    <ion-avatar slot="start"> <img src="/assets/images/a.jpg" (click)="presentModal()" height="30px" width="30px">
     </ion-avatar>
 
-    <ion-label>
+    <ion-label (click)="StudentDetailsModal()">
       <h2>Name : Farin</h2>
       <h3>Qualification : MSC(CS)</h3>
       <p>City : Nashik</p>
@@ -78,24 +78,17 @@
 
 
 
-    <ion-item>
-    <ion-avatar slot="start"> <img src="/assets/images/a.jpg" height="30px" width="30px">
+  <ion-item>
+    <ion-avatar slot="start"> <img src="/assets/images/a.jpg" (click)="presentModal()" height="30px" width="30px">
     </ion-avatar>
 
-    <ion-label>
+    <ion-label (click)="StudentDetailsModal()">
       <h2>Name : Farin</h2>
       <h3>Qualification : MSC(CS)</h3>
       <p>City : Nashik</p>
     </ion-label>
 
   </ion-item>
-
-
-
-
-
-
-
 
 
 
@@ -117,11 +110,6 @@
 
   </ion-card> -->
 
-
-
-
-  <!-- 
-      <ion-router-link href="#">Default</ion-router-link> -->
 
 
 
