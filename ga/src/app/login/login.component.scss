@@ -1,0 +1,36 @@
+ion-content {
+  .loginForm {
+    margin-top: 40%;
+    width: 100%;
+    padding: 5%;
+    text-align: center;
+    input, input:focus {
+      border: 1px solid #cecece;
+      width: 90%;
+      border-radius: 15px;
+      padding: 2%;
+      margin: 5% 0;
+      text-align: center;
+    };
+    button {
+      padding: 3%;
+      border-radius: 20px;
+      width: 50%;
+      text-transform: uppercase;
+      font-weight: bold;
+      background-color: #33beff;
+      color: #ffffff;
+    };
+    p {
+        font-size: 12px;
+        color: #000;
+        font-style: italic;
+        margin-top: 5%;
+        text-align: center;
+        span {
+            color: #33beff;
+            cursor: pointer;
+        }
+    }
+  }
+}

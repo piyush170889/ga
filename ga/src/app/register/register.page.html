@@ -1,0 +1,151 @@
+<ion-header>
+  <ion-toolbar style="--background: #33beff;">
+    <!-- <ion-buttons slot="start">
+      <ion-menu-button auto-hide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="primary">
+      <ion-button>
+        <ion-icon slot="icon-only" ios="ellipsis-horizontal" md="ellipsis-vertical"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+
+    <ion-title class="ion-text-center" style="color: #fff;">Register Student </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <h6>Personal Information</h6>
+
+  <form>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Name <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Mobile No. 1 <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="number"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Mobile No. 2 <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="number"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Mobile No. 3 <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="number"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Password <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Gender <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-select placeholder="Gender">
+            <ion-select-option value="M">Male</ion-select-option>
+            <ion-select-option value="F">Female</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Birth Date <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-datetime value="1990-02-19"></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            City <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-select placeholder="City">
+            <ion-select-option value="PUN">Pune</ion-select-option>
+            <ion-select-option value="KOP">Kopargaon</ion-select-option>
+            <ion-select-option value="NSK">Nashik</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <h6>Eduction Information</h6>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Qualification <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Qualification Certificate <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <div class="ion-padding">
+      <ion-button expand="block" (click)="registerUser()" type="button" class="ion-no-margin">Register</ion-button>
+    </div>
+  </form>
+
+  <p>Already Registered? <span routerLink="/">Sign In!!</span></p>
+</ion-content>
