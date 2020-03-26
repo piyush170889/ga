@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-back-button [text]="buttonText" [icon]="buttonIcon">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title>Edit Profile</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+  <ion-row>
+    <ion-col size-md="4" offset-md="4">
+
+      <img class="circle-pic" src="/assets/images/a.jpg" />
+      <ion-icon class="camera-icon" name="Camera" (click)="opencameraeditmodal()">Open Camera</ion-icon>
+
+
+
+      <ion-item (click)="editDetailsModal()" *ngFor="let department of departments" (click)="passId(department.id)"
+        routerLink="/edit-profile/{{department.id}}">
+
+
+        <ion-label>
+          <div class="text">
+            <h4> {{department.title}} </h4>
+            <h3>{{department.name}}</h3>
+            <h3>{{department.city}}</h3>
+
+
+          </div>
+        </ion-label>
+        <ion-icon name="create-outline"></ion-icon>
+
+
+      </ion-item>
+
+    </ion-col>
+  </ion-row>
+
+
+
+
+
+</ion-content>

@@ -9,6 +9,7 @@ import { ModalController } from '@ionic/angular';
 })
 export class StudentDetailsPage implements OnInit {
 
+
   constructor(private modalCtrl: ModalController) { }
   close() {
 

@@ -8,6 +8,7 @@ import { HomePage } from './home.page';
 import { PhotogalleryPage } from '../photogallery/photogallery.page';
 import { StudentDetailsPage } from '../student-details/student-details.page';
 
+
 @NgModule({
   imports: [
     CommonModule,
@@ -26,6 +27,7 @@ import { StudentDetailsPage } from '../student-details/student-details.page';
         path: '',
         component: StudentDetailsPage
       },
+
     ])
   ],
   declarations: [HomePage, PhotogalleryPage, StudentDetailsPage]

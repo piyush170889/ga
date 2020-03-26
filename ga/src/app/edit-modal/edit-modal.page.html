@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>editModal</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+
+
+  <ion-row>
+    <ion-col size-md="4" offset-md="4">
+
+
+
+      <ion-item>
+
+        <ion-label position="floating">Enter your name</ion-label>
+        <ion-input [(ngModel)]="username"></ion-input>
+
+      </ion-item>
+
+
+      <ion-item>
+
+        <ion-label position="floating">Enter your gender</ion-label>
+        <ion-input [(ngModel)]="gender" [disabled]="!Visible"></ion-input>
+
+      </ion-item>
+
+
+      <ion-item>
+
+        <ion-label position="floating">Enter your DOB</ion-label>
+        <ion-input [(ngModel)]="DOB" [disabled]="!Visible"></ion-input>
+
+      </ion-item>
+
+
+      <ion-item>
+
+        <ion-label position="floating">Enter your city</ion-label>
+        <ion-input [(ngModel)]="city" [disabled]="!Visible"></ion-input>
+
+      </ion-item>
+
+
+      <ion-item>
+
+        <ion-label position="floating">Enter your qualification</ion-label>
+        <ion-input [(ngModel)]="qualification" [disabled]="!Visible"></ion-input>
+
+      </ion-item>
+
+
+      <ion-item>
+
+        <ion-label position="floating">Enter your Phone</ion-label>
+        <ion-input [(ngModel)]="qualification" [disabled]="!Visible"></ion-input>
+
+      </ion-item>
+
+
+
+
+      <ion-item>
+        <ion-button (click)="cancel()">CANCEL</ion-button>
+        <ion-button (click)="save()">SAVE</ion-button>
+      </ion-item>
+
+
+
+    </ion-col>
+  </ion-row>
+
+
+
+
+</ion-content>
