@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 
@@ -9,17 +9,19 @@ import { ModalController } from '@ionic/angular';
 })
 export class StudentDetailsPage implements OnInit {
 
-
-  constructor(private modalCtrl: ModalController) { }
-  close() {
-
-    this.modalCtrl.dismiss({
-
-    });
-  }
-
+  @Input() user: any;
+  @Input() doShowDetails: boolean;
+  
+  constructor(
+    private modalCtrl: ModalController
+  ) { }
 
   ngOnInit() {
+    console.log('users = ' + JSON.stringify(this.user));
+    console.log('users = ' + JSON.stringify(this.doShowDetails));
   }
 
+  close() {
+    this.modalCtrl.dismiss({});
+  }
 }

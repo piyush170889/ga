@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { HomePage } from './home.page';
 import { PhotogalleryPage } from '../photogallery/photogallery.page';
 import { StudentDetailsPage } from '../student-details/student-details.page';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { DataService } from '../core/dataservices/data.service';
 
 
 @NgModule({
@@ -30,6 +32,7 @@ import { StudentDetailsPage } from '../student-details/student-details.page';
 
     ])
   ],
-  declarations: [HomePage, PhotogalleryPage, StudentDetailsPage]
+  declarations: [HomePage, PhotogalleryPage, StudentDetailsPage, ToolbarComponent],
+  providers: [DataService]
 })
 export class HomePageModule { }

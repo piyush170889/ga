@@ -22,8 +22,8 @@
   b {
     font-weight: 500;
     font-size: medium;
-    margin-left:50px;
-    margin-right:8px;
+    // margin-left:120px;
+    // margin-right:8px;
   }
 
   p {
@@ -35,6 +35,17 @@
 
   p b {
     color: var(--ion-text-color, #000000);
+  }
+
+  .details {
+    padding: 10px;
+  }
+
+  .back-arrow-c {
+    color: #fff;
+    vertical-align: -webkit-baseline-middle;
+    font-size: 22px;
+    margin: 10px 0 0 10px;
   }
 
 

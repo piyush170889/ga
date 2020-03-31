@@ -1,38 +1,20 @@
 <ion-header>
-  <ion-toolbar style="--background: #33beff;">
-
-    <ion-row>
-      <ion-col size="2">
-        <!-- <ion-buttons slot="start"> -->
-        <ion-menu-button auto-hide="false"></ion-menu-button>
-        <!-- </ion-buttons> -->
-      </ion-col>
-
-      <ion-col size="8" class="ion-text-center" style="color:#fff;">
-        9096409749
-      </ion-col>
-
-      <ion-col size="2">
-        <img src="./assets/images/a.jpg" height="20px" width="20px">
-      </ion-col>
-
-    </ion-row>
-
-  </ion-toolbar>
+  <app-toolbar></app-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-searchbar></ion-searchbar>
+  <ion-searchbar (ionChange)="searchUser()" [(ngModel)]="term" debounce="1000" animated></ion-searchbar>
 
-  <ion-item *ngFor="let i of [1,2,3,4]">
-    <ion-avatar slot="start"> <img src="/assets/images/a.jpg" (click)="presentModal()" height="30px" width="30px">
+  <ion-item *ngFor="let user of users">
+    <ion-avatar slot="start">
+      <img [src]="user.img" (click)="presentModal(user)" height="30px" width="30px">
     </ion-avatar>
 
-    <ion-label (click)="StudentDetailsModal()">
-      <h3>Name : John Doe</h3>
-      <p>Qualification : MSC(CS)</p>
-      <p>City : Pune</p>
+    <ion-label (click)="studentDetailsModal(user)">
+      <h3>Name : {{user.name}}</h3>
+      <p>Qualification : {{user.qual}}</p>
+      <p>City : {{user.city}}</p>
     </ion-label>
 
   </ion-item>
