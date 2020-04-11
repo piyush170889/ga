@@ -1,5 +1,7 @@
 {
   "name": "ga",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
