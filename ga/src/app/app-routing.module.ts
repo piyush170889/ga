@@ -3,21 +3,27 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { from } from 'rxjs';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 const routes: Routes = [
-  { 
-    path: '', 
-    component: LoginComponent, 
+  {
+    path: '',
+    component: LoginComponent,
     // loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule), 
   },
-  { 
-    path: 'register', 
-    loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule), 
+  {
+    path: 'logout',
+    component: LogoutComponent,
+    // loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule), 
   },
-  { 
-    path: 'home', 
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule) 
+  {
+    path: 'register',
+    loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule),
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: 'photogallery',

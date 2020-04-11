@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../core/dataservices/data.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -11,6 +12,7 @@ import { DataService } from '../core/dataservices/data.service';
 export class LoginComponent implements OnInit {
 
   formGroup: FormGroup;
+  imageSrc: any = 'https://i.stack.imgur.com/l60Hf.png';
 
   constructor(
     private router: Router,
