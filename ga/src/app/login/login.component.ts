@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../core/dataservices/data.service';
+import { ServerUrl } from '../core/constants/server-url';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
 
     this.formGroup = this.fb.group(
       {
-        username: ['', Validators.required],
+        mobile: ['', Validators.required],
         password: ['', Validators.required]
       }
     )
@@ -41,21 +42,20 @@ export class LoginComponent implements OnInit {
 
     console.log(this.formGroup.value);
 
-    // const loginUrl: string = 'login';
-    // this.dataService.post({ url: loginUrl, data: this.formGroup.value, isLoader: true })
-    //   .subscribe(
-    //     (response) => {
-    //       console.log('Response = ' + JSON.stringify(response));
-    //       this.router.navigateByUrl('home');
-    //     },
-    //     (err) => {
-    //       console.log(err);
+    const loginUrl: string = ServerUrl.LOGIN;
+    this.dataService.post({ url: loginUrl, data: this.formGroup.value, isLoader: true })
+      .subscribe(
+        (response) => {
+          console.log('Response = ' + JSON.stringify(response));
+          this.router.navigateByUrl('home');
+        },
+        (err) => {
+          console.log(err);
 
-    //     }
-    //   );
+        }
+      );
 
-    this.router.navigateByUrl('home');
-
+    // this.router.navigateByUrl('home');
   }
 
 }

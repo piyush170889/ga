@@ -9,6 +9,7 @@ import { PhotogalleryPage } from '../photogallery/photogallery.page';
 import { StudentDetailsPage } from '../student-details/student-details.page';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { DataService } from '../core/dataservices/data.service';
+import { Utility } from '../core/utility';
 
 
 @NgModule({
@@ -33,6 +34,6 @@ import { DataService } from '../core/dataservices/data.service';
     ])
   ],
   declarations: [HomePage, PhotogalleryPage, StudentDetailsPage, ToolbarComponent],
-  providers: [DataService]
+  providers: [DataService, Utility]
 })
 export class HomePageModule { }

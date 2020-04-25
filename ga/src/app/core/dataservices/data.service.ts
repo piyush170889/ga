@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
+import { ServerUrl } from '../constants/server-url';
 
 @Injectable()
 export class DataService {
@@ -31,7 +32,10 @@ export class DataService {
   post(info: { url: string; data: any; isLoader?: boolean; }): Observable<Response> {
     this.startLoader(info);
 
-    return this.http.post(info.url, info.data).pipe(
+    let postUrl: string = ServerUrl.MAIN + info.url;
+    console.log('postUrl = ', postUrl);
+
+    return this.http.post(postUrl, info.data).pipe(
       map((res: Response) => {
         return this.extractData(res, info);
       }),
@@ -45,7 +49,10 @@ export class DataService {
   put(info: { url: string; data: any; isLoader?: boolean; }): Observable<Response> {
     this.startLoader(info);
 
-    return this.http.put(info.url, info.data).pipe(
+    let putUrl: string = ServerUrl.MAIN + info.url;
+    console.log('putUrl = ', putUrl);
+
+    return this.http.put(putUrl, info.data).pipe(
       map((res: Response) => {
         return this.extractData(res, info);
       }),
@@ -59,7 +66,10 @@ export class DataService {
   get(info: { url: string; isLoader?: boolean; }): Observable<Response> {
     this.startLoader(info);
 
-    return this.http.get(info.url).pipe(
+    let getUrl: string = ServerUrl.MAIN + info.url;
+    console.log('getUrl = ', getUrl);
+
+    return this.http.get(getUrl).pipe(
       map((res: Response) => {
         return this.extractData(res, info);
       }),
@@ -87,7 +97,10 @@ export class DataService {
   delete(info: { url: string; isLoader?: boolean; }): Observable<Response> {
     this.startLoader(info);
 
-    return this.http.delete(info.url).pipe(
+    let deleteUrl: string = ServerUrl.MAIN + info.url;
+    console.log('deleteUrl = ', deleteUrl);
+
+    return this.http.delete(deleteUrl).pipe(
       map((res: Response) => {
         return this.extractData(res, info);
       }),

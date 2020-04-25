@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Utility } from '../core/utility';
 
 
 @Component({
@@ -11,9 +12,10 @@ export class StudentDetailsPage implements OnInit {
 
   @Input() user: any;
   @Input() doShowDetails: boolean;
-  
+
   constructor(
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private utlitiy: Utility
   ) { }
 
   ngOnInit() {
@@ -23,5 +25,13 @@ export class StudentDetailsPage implements OnInit {
 
   close() {
     this.modalCtrl.dismiss({});
+  }
+
+  diff_years(userDob) {
+
+    let d1: Date = new Date(userDob);
+    let d2: Date = new Date();
+
+    return this.utlitiy.diff_years(d1, d2);
   }
 }

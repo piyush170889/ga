@@ -8,6 +8,7 @@ import { StudentDetailsPageRoutingModule } from './student-details-routing.modul
 
 import { StudentDetailsPage } from './student-details.page';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
+import { Utility } from '../core/utility';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ToolbarComponent } from '../toolbar/toolbar.component';
     IonicModule,
     StudentDetailsPageRoutingModule
   ],
+  providers: [Utility],
   declarations: [StudentDetailsPage, ToolbarComponent]
 })
 export class StudentDetailsPageModule { }

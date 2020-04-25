@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../core/dataservices/data.service';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { ServerUrl } from '../core/constants/server-url';
 
 
 @Component({
@@ -24,15 +25,17 @@ export class RegisterPage implements OnInit {
   ) {
 
     this.formGroup = this.fb.group({
-      name: ['', Validators.required],
-      qual: ['', Validators.required],
-      city: ['', Validators.required],
-      dob: ['', Validators.required],
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
       gender: ['', Validators.required],
-      pass: ['', Validators.required],
-      mthree: ['', Validators.required],
-      mtwo: ['', Validators.required],
-      mone: ['', Validators.required],
+      city: ['', Validators.required],
+      dob: ['1990-01-01', Validators.required],
+      qualification: ['', Validators.required],
+      active: [1, Validators.required],
+      mobile1: ['', Validators.required],
+      mobile2: ['', Validators.required],
+      mobile3: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
@@ -48,21 +51,21 @@ export class RegisterPage implements OnInit {
 
     let data: any = this.formGroup.value;
     data['attachments'] = this.attachements;
+    console.log('data = ', data);
 
-    // let registerUrl = '';
-    // this.dataService.post({ url: registerUrl, data: data, isLoader: true })
-    //   .subscribe(
-    //     (response) => {
-    //       console.log('Response = ' + JSON.stringify(response));
-    //       this.router.navigateByUrl('home');
-    //     },
-    //     (err) => {
-    //       console.log(err);
+    this.dataService.post({ url: ServerUrl.REGISTER, data: data, isLoader: true })
+      .subscribe(
+        (response) => {
+          console.log('Response = ' + JSON.stringify(response));
+          this.router.navigateByUrl('home');
+        },
+        (err) => {
+          console.log(err);
 
-    //     }
-    //   )
+        }
+      )
 
-    this.router.navigateByUrl('home');
+    // this.router.navigateByUrl('home');
   }
 
   openGallery() {

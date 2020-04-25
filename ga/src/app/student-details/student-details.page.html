@@ -7,7 +7,7 @@
       </ion-col>
 
       <ion-col size="8" class="ion-text-center ion-align-self-center" style="color:#fff;">
-        {{user.mone}}
+        {{user.mobile1}}
       </ion-col>
 
       <ion-col size="2">
@@ -50,16 +50,16 @@
 
           <ion-card class="details">
             <ion-card-title>
-              <h6><b>Name :</b>{{user.name}}</h6>
+              <h6><b>Name :</b>{{user.first_name}} {{user.last_name}}</h6>
             </ion-card-title>
             <ion-card-title>
-              <h6><b>Qualification :</b>{{user.qual}}</h6>
+              <h6><b>Qualification :</b>{{user.qualification}}</h6>
             </ion-card-title>
             <ion-card-title>
               <h6><b>City :</b>{{user.city}}</h6>
             </ion-card-title>
             <ion-card-title>
-              <h6><b>Age :</b>{{user.age}}</h6>
+              <h6><b>Age :</b>{{diff_years(user.dob)}}</h6>
             </ion-card-title>
           </ion-card>
 

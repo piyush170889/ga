@@ -3,6 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { PhotogalleryPage } from '../photogallery/photogallery.page';
 import { StudentDetailsPage } from '../student-details/student-details.page';
 import { DataService } from '../core/dataservices/data.service';
+import { ServerUrl } from '../core/constants/server-url';
+import { Utility } from '../core/utility';
 
 
 
@@ -27,53 +29,17 @@ export class HomePage {
     if (this.doClearLocalStorage)
       localStorage.clear();
 
-    this.users = this.populateDummmyUsersData();
-    this.usersOrg = this.populateDummmyUsersData();
+    this.dataService.get({ url: ServerUrl.USERS, isLoader: true })
+      .subscribe(
+        (response: any) => {
+          console.log('User Listing = ', response);
 
-    // const fetchUserUrl: string = 'users';
-    // this.dataService.get({ url: fetchUserUrl, isLoader: true })
-    //   .subscribe(
-    //     (response: any) => {
-    //       console.log('Response = ' + JSON.stringify(response));
-    //       this.users = response;
-    //     },
-    //     (err) => {
-    //       console.log(err);
-    //     }
-    //   );
+          this.users = response.data;
+          this.usersOrg = response.data;
+        }
+      );
   }
 
-  populateDummmyUsersData() {
-
-    return [{
-      name: 'John Doe 1',
-      qual: 'MSC(CS)',
-      city: 'Nasik',
-      age: '22',
-      img: '/assets/images/user.png',
-      img1: '/assets/images/user.png',
-      img2: '/assets/images/user.png',
-      mone: '9096409749'
-    }, {
-      name: 'John Doe 2',
-      qual: 'BE(CS)',
-      city: 'Pune',
-      age: '22',
-      img: '/assets/images/user.png',
-      img1: '/assets/images/user.png',
-      img2: '/assets/images/user.png',
-      mone: '9096409749'
-    }, {
-      name: 'John Doe 3',
-      qual: 'BE(IT)',
-      city: 'Mumbai',
-      age: '24',
-      img: '/assets/images/user.png',
-      img1: '/assets/images/user.png',
-      img2: '/assets/images/user.png',
-      mone: '9096409749'
-    }]
-  }
 
   async presentModal(user: any) {
 
@@ -118,8 +84,9 @@ export class HomePage {
       this.users = this.usersOrg.filter(
         (user: any) => {
           if (
-            (user.name.toLowerCase().indexOf(compareTerm) > -1)
-            || (user.qual.toLowerCase().indexOf(compareTerm) > -1)
+            (user.first_name.toLowerCase().indexOf(compareTerm) > -1)
+            || (user.last_name.toLowerCase().indexOf(compareTerm) > -1)
+            || (user.qualification.toLowerCase().indexOf(compareTerm) > -1)
             || (user.city.toLowerCase().indexOf(compareTerm) > -1))
             return true;
         }
@@ -130,4 +97,6 @@ export class HomePage {
       this.users = Object.assign([], this.usersOrg);
     }
   }
+
+
 }
