@@ -1,0 +1,82 @@
+{
+	"variables": [],
+	"info": {
+		"name": "GA",
+		"_postman_id": "f82abe3c-dcc2-f58a-c448-de2947eddc79",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users Listing",
+			"request": {
+				"url": "http://localhost/SampleAPI/public/api/users",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Register User",
+			"request": {
+				"url": "http://localhost/SampleAPI/public/api/register",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n \t\"first_name\": \"demo\",\r\n    \"last_name\":\"user1\",\r\n    \"gender\" :\"male\",\r\n    \"city\" :\"test\",\r\n    \"dob\" :\"2019-06-18\",\r\n    \"qualification\" :\"test\",\r\n    \"active\" :\"1\",\r\n    \"mobile1\" :\"9998887776\",\r\n    \"mobile2\" :\"9870654123\",\r\n    \"mobile3\":\"9876543210\",\r\n    \"password\" :\"demo@123\"\r\n }"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"url": "http://localhost/SampleAPI/public/api/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"mobile\" :\"9876543210\",\r\n\t\"password\" :\"demo@123\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Edit User",
+			"request": {
+				"url": "http://localhost/SampleAPI/public/api/edit_user",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"id\" : \"2\",\r\n\t\"first_name\" : \"test1\",\r\n\t\"last_name\"  : \"test1\",\r\n\t\"gender\" : \"male\",\r\n\t\"city\"  : \"test\",\r\n\t\"dob\"  : \"2017-11-12\",\r\n\t\"qualification\"  : \"test\",\r\n\t\"active\"  : \"1\",\r\n\t\"mobile1\"  : \"9234567891\",\r\n\t\"mobile2\"  : \"9234567891\",\r\n\t\"mobile3\"  : \"9234567891\"\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
