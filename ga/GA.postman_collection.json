@@ -32,7 +32,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": " {\r\n \t\"first_name\": \"demo\",\r\n    \"last_name\":\"user1\",\r\n    \"gender\" :\"male\",\r\n    \"city\" :\"test\",\r\n    \"dob\" :\"2019-06-18\",\r\n    \"qualification\" :\"test\",\r\n    \"active\" :\"1\",\r\n    \"mobile1\" :\"9998887776\",\r\n    \"mobile2\" :\"9870654123\",\r\n    \"mobile3\":\"9876543210\",\r\n    \"password\" :\"demo@123\"\r\n }"
+					"raw": " {\r\n\"active\": 1,\r\n\"attachments\": [],\r\n\"city\": \"KOP\",\r\n\"dob\": \"1990-01-01\",\r\n\"first_name\": \"Piyush\",\r\n\"gender\": \"M\",\r\n\"last_name\": \"Jadhav\",\r\n\"mobile1\": 9876549876,\r\n\"mobile2\": 9988776621,\r\n\"mobile3\": 9988557733,\r\n\"password\": \"demo@123\",\r\n\"qualification\": \"BE (I.T)\"\r\n }"
 				},
 				"description": ""
 			},
@@ -74,6 +74,23 @@
 					"mode": "raw",
 					"raw": "{\r\n\t\"id\" : \"2\",\r\n\t\"first_name\" : \"test1\",\r\n\t\"last_name\"  : \"test1\",\r\n\t\"gender\" : \"male\",\r\n\t\"city\"  : \"test\",\r\n\t\"dob\"  : \"2017-11-12\",\r\n\t\"qualification\"  : \"test\",\r\n\t\"active\"  : \"1\",\r\n\t\"mobile1\"  : \"9234567891\",\r\n\t\"mobile2\"  : \"9234567891\",\r\n\t\"mobile3\"  : \"9234567891\"\r\n}"
 				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "User Details",
+			"request": {
+				"url": "http://localhost/SampleAPI/public/api/user",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjA1MzRiYjUyZThjN2UzNTFiMTU1NjA0YjE2OTY2NDkyNGZjNDliYTRiMTdhODRhYjJiNjhlNDE3ODFkZjJjNmY2ZDc5MTU2OGUyNDk1YzI0In0.eyJhdWQiOiIxIiwianRpIjoiMDUzNGJiNTJlOGM3ZTM1MWIxNTU2MDRiMTY5NjY0OTI0ZmM0OWJhNGIxN2E4NGFiMmI2OGU0MTc4MWRmMmM2ZjZkNzkxNTY4ZTI0OTVjMjQiLCJpYXQiOjE1ODc4OTYzMzUsIm5iZiI6MTU4Nzg5NjMzNSwiZXhwIjoxNjE5NDMyMzM0LCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.jHmgEoJva3Zrfvvk9TgfYzLHAgIvragcME_gRtBgOcQXunrfchZQozeuFky8p0HqEp1q-dqKXffwE3IaJOQPLfJXGOrcrpz2coiMAABHYMg3OLdDst-3S_CE0w19M1m5RlL4TknW08u_mtBiwwQZd3-JZzNRPl2DXHrWoJBjDOIABuZbDI1-YpxnfnGftzDjP-v9bsjVHAoRGhiCAWu6m2HzJCg30qJVNH0dRyzUZyh8wXOSFwzKGfI8QZuO8Qf5JQoRM7aDRXDMLlrK81Px3YGPRsoBVIxSY91c5b-rOuO3-xpQdBgJ3Kvu--HfTKUds3_I8i9IurColdPWuxaLyv9DJ_A_-rbt0yNS6KHuRVbQdr-nc8V3KxZOgoGobtOymlaCx-MYtJADfWckLka1Dw_uEB3vCJLj2G7erWatvfpUQ9tnYqt1oFXcjplx-jW9Ggp4Wmhfqmo7dEc7xrbY1rV9SIcLPeQLqRUJWJG1ElrRuVcefy_SF-CJir2T0P6DEXVnENA3xvsK-lG_JHxLVpNcd-RsbYiJNl-Yd0nDvJPCVjQR2oBa2kpX5IzbBt-uviV3Uz0v0mz6HeyVRX2dUm3N8xRPrC6LK4NDRH7_9UcgGVBn_Pvwh2lUss0KP6vBjwPXYj59p-rXWELV58szIwnSqxwlMBENBiR_ZbFvmlk",
+						"description": ""
+					}
+				],
+				"body": {},
 				"description": ""
 			},
 			"response": []
