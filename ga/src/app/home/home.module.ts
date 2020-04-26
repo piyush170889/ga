@@ -5,11 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
-import { PhotogalleryPage } from '../photogallery/photogallery.page';
 import { StudentDetailsPage } from '../student-details/student-details.page';
-import { ToolbarComponent } from '../toolbar/toolbar.component';
 import { DataService } from '../core/dataservices/data.service';
 import { Utility } from '../core/utility';
+import { EditProfilePageModule } from '../edit-profile/edit-profile.module';
 
 
 @NgModule({
@@ -24,16 +23,12 @@ import { Utility } from '../core/utility';
       },
       {
         path: '',
-        component: PhotogalleryPage
-      },
-      {
-        path: '',
         component: StudentDetailsPage
-      },
-
-    ])
+      }
+    ]),
+    EditProfilePageModule
   ],
-  declarations: [HomePage, PhotogalleryPage, StudentDetailsPage, ToolbarComponent],
+  declarations: [HomePage, StudentDetailsPage],
   providers: [DataService, Utility]
 })
 export class HomePageModule { }

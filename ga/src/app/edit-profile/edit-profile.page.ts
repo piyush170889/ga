@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { EditModalPage } from '../edit-modal/edit-modal.page';
-import { ModalController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
-import { ActionSheetController } from '@ionic/angular';
-import { File } from '@ionic-native/file/ngx';
-
+import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DataService } from '../core/dataservices/data.service';
+import { ServerUrl } from '../core/constants/server-url';
+import { Utility } from '../core/utility';
 
 
 @Component({
@@ -13,126 +11,97 @@ import { File } from '@ionic-native/file/ngx';
   templateUrl: './edit-profile.page.html',
   styleUrls: ['./edit-profile.page.scss'],
 })
-export class EditProfilePage {
+export class EditProfilePage implements OnInit {
 
-  modalCtrl: any;
-  image: any;
-  router: any;
-  id: string;
-  name: string;
-  city: string;
-  phone: number;
+  formGroup: FormGroup;
+  attachements: string[] = [];
+  user: any = {};
 
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private dataService: DataService,
+    private utility: Utility
+  ) {
 
-  departments = [{ "id": 1, "title": "Name", "name": "Farin" },
-  { "id": 2, "title": "Gender", "name": "Female" },
-  { "id": 3, "title": "Birth Date", "name": "22 Aug 1996" },
-  { "id": 4, "title": "City", "name": "Nasik" },
-  { "id": 5, "title": "Qualification", "name": "MSC(cs)" },
-  { "id": 6, "title": "Phone", "name": "9568452365" }]
-
-  croppedImagepath = "";
-  isLoading = false;
-
-  imagePickerOptions = {
-    maximumImagesCount: 1,
-    quality: 50
-  };
-
-
-  constructor(public modalController: ModalController, private route: ActivatedRoute,
-    private camera: Camera, public actionSheetCtrl: ActionSheetController, private file: File) { }
-
-
-  async editDetailsModal() {
-    const modal = await this.modalController.create({
-      component: EditModalPage,
-      componentProps: {
-        'firstName': 'Farin',
-        'lastName': 'Shaikh',
-        'middleInitial': 'S'
-
-
-      }
-
+    this.formGroup = this.fb.group({
+      id: [this.user.id, Validators.required],
+      first_name: [this.user.first_name, Validators.required],
+      last_name: [this.user.last_name, Validators.required],
+      gender: [this.user.gender, Validators.required],
+      city: [this.user.city, Validators.required],
+      dob: [this.user.dob, Validators.required],
+      qualification: [this.user.qualification, Validators.required],
+      active: [this.user.active, Validators.required],
+      mobile1: [this.user.mobile1, Validators.required],
+      mobile2: [this.user.mobile2, Validators.required],
+      mobile3: [this.user.mobile3, Validators.required],
+      password: ['', Validators.required]
     });
-
-    await modal.present();
-    modal.onDidDismiss()
-
   }
 
+  ngOnInit() {
 
-  passId(id) {
-    console.log("id", id);
-  }
+    let userDetailsApi: string = ServerUrl.USER_DTLS;
+    this.dataService.get({ url: userDetailsApi })
+      .subscribe(
+        (response: any) => {
+          console.log('response = ', response);
+          this.user = response;
 
-
-
-  openCam(sourceType) {
-
-    const options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE
-    }
-
-    this.camera.getPicture(options).then((imageData) => {
-
-      this.image = (<any>window).Ionic.WebView.convertFileSrc(imageData);
-    }, (err) => {
-
-      alert("error " + JSON.stringify(err))
-    });
-
-  }
-
-
-
-
-  async opencameraeditmodal() {
-    const actionSheet = await this.actionSheetCtrl.create({
-
-      buttons: [
-
-        {
-          text: 'Remove  photo',
-          icon: 'archive',
-          role: 'destructive',
-          handler: () => {
-            console.log('remove clicked');
-          }
+          this.formGroup.controls['id'].setValue(this.user.id);
+          this.formGroup.controls['first_name'].setValue(this.user.first_name);
+          this.formGroup.controls['last_name'].setValue(this.user.last_name);
+          this.formGroup.controls['gender'].setValue(this.user.gender);
+          this.formGroup.controls['city'].setValue(this.user.city);
+          this.formGroup.controls['dob'].setValue(this.user.dob);
+          this.formGroup.controls['qualification'].setValue(this.user.qualification);
+          this.formGroup.controls['active'].setValue(this.user.active);
+          this.formGroup.controls['mobile1'].setValue(this.user.mobile1);
+          this.formGroup.controls['mobile2'].setValue(this.user.mobile2);
+          this.formGroup.controls['mobile3'].setValue(this.user.mobile3);
         },
-        {
-          text: 'Gallery',
-          icon: 'images',
-          handler: () => {
-            this.openCam(this.camera.PictureSourceType.PHOTOLIBRARY);
-
-            console.log('Gallery clicked');
-          }
-        },
-        {
-          text: 'Camera',
-          icon: 'camera',
-          role: 'action',
-          handler: () => {
-            this.openCam(this.camera.PictureSourceType.CAMERA);
-            console.log('camera clicked');
-          }
-
-        }, {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
+        (err) => {
+          console.log('Error', err);
+          alert('Error Ocuured Getting User Details');
         }
-      ]
-    });
-    await actionSheet.present();
+      );
   }
 
+  updateUserData() {
 
+    console.log('updateUserData() called');
+    console.log(this.formGroup.value);
+    console.log('Attachments = ');
+    console.log(this.attachements);
+
+    let data: any = this.formGroup.value;
+    data['attachments'] = this.attachements;
+    console.log('data = ', data);
+
+    this.dataService.post({ url: ServerUrl.EDIT_USERS, data: data, isLoader: true })
+      .subscribe(
+        (response) => {
+          console.log('Response = ' + JSON.stringify(response));
+          alert('User details updated successfully');
+        },
+        (err) => {
+          console.log(err);
+          alert('Failed to update user details');
+        }
+      );
+  }
+
+  async openGallery() {
+
+    console.log('openGallery called');
+    this.attachements = await this.utility.openGallery(this.attachements);
+  }
+
+  removeAttachment(i: number) {
+
+    console.log('Index To Remove = ' + i);
+
+    this.attachements.splice(i, 1);
+  }
 }

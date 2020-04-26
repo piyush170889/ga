@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { ServerUrl } from '../constants/server-url';
+import { ApplicationConstants } from '../constants/application-constants';
 
 @Injectable()
 export class DataService {
@@ -69,7 +70,11 @@ export class DataService {
     let getUrl: string = ServerUrl.MAIN + info.url;
     console.log('getUrl = ', getUrl);
 
-    return this.http.get(getUrl).pipe(
+    let token: string = localStorage.getItem(ApplicationConstants.KEY_TOKEN);
+    let headers: any = {
+      'Authorization': 'Bearer ' + token
+    };
+    return this.http.get(getUrl, { headers: headers }).pipe(
       map((res: Response) => {
         return this.extractData(res, info);
       }),

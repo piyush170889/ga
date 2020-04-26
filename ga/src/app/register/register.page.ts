@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../core/dataservices/data.service';
-import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { ServerUrl } from '../core/constants/server-url';
+import { Utility } from '../core/utility';
+import { ApplicationConstants } from '../core/constants/application-constants';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class RegisterPage implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private dataService: DataService,
-    private camera: Camera
+    private utility: Utility
   ) {
 
     this.formGroup = this.fb.group({
@@ -57,7 +58,28 @@ export class RegisterPage implements OnInit {
       .subscribe(
         (response) => {
           console.log('Response = ' + JSON.stringify(response));
-          this.router.navigateByUrl('home');
+
+          const loginUrl: string = ServerUrl.LOGIN;
+          const loginData = {
+            mobile: data.mobile1,
+            password: data.password
+          };
+
+          this.dataService.post({ url: loginUrl, data: loginData, isLoader: true })
+            .subscribe(
+              (response: any) => {
+                console.log('Response = ' + JSON.stringify(response));
+
+                // Store Token in localstorage
+                localStorage.setItem(ApplicationConstants.KEY_TOKEN, response.token);
+
+                this.router.navigateByUrl('home');
+              },
+              (err) => {
+                console.log(err);
+
+              }
+            );
         },
         (err) => {
           console.log(err);
@@ -68,30 +90,10 @@ export class RegisterPage implements OnInit {
     // this.router.navigateByUrl('home');
   }
 
-  openGallery() {
+  async openGallery() {
 
-    if (this.attachements.length < 5) {
-      let cameraOptions: CameraOptions = {
-        sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-        destinationType: this.camera.DestinationType.DATA_URL,
-        quality: 100,
-        targetWidth: 1000,
-        targetHeight: 1000,
-        encodingType: this.camera.EncodingType.JPEG,
-        correctOrientation: true
-      }
-
-      this.camera.getPicture(cameraOptions)
-        .then(
-          (data_uri) => {
-            console.log(data_uri);
-            let base64Image: string = 'data:image/jpeg;base64,' + data_uri;
-            this.attachements.push(base64Image);
-          },
-          (err) => console.log(err));
-    } else {
-      alert('You can have maximum 5 attachments');
-    }
+    console.log('openGallery called');
+    this.attachements = await this.utility.openGallery(this.attachements);
   }
 
   removeAttachment(i: number) {

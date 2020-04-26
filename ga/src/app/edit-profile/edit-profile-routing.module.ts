@@ -5,10 +5,9 @@ import { EditProfilePage } from './edit-profile.page';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'edit-user',
     component: EditProfilePage
-  },
-  
+  }
 ];
 
 @NgModule({

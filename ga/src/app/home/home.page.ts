@@ -1,11 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PhotogalleryPage } from '../photogallery/photogallery.page';
 import { StudentDetailsPage } from '../student-details/student-details.page';
 import { DataService } from '../core/dataservices/data.service';
 import { ServerUrl } from '../core/constants/server-url';
-import { Utility } from '../core/utility';
-
 
 
 @Component({
@@ -16,18 +13,14 @@ import { Utility } from '../core/utility';
 export class HomePage {
 
   modalCtrl: any;
-  doClearLocalStorage: boolean = false;
   users: any[] = [];
   usersOrg: any[] = [];
   term: string = '';
-
-  constructor(
-    private modalController: ModalController,
-    private dataService: DataService
-  ) {
-
-    if (this.doClearLocalStorage)
-      localStorage.clear();
+  
+    constructor(
+      private modalController: ModalController,
+      private dataService: DataService
+    ) {
 
     this.dataService.get({ url: ServerUrl.USERS, isLoader: true })
       .subscribe(

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../core/dataservices/data.service';
 import { ServerUrl } from '../core/constants/server-url';
+import { ApplicationConstants } from '../core/constants/application-constants';
 
 
 @Component({
@@ -45,8 +46,12 @@ export class LoginComponent implements OnInit {
     const loginUrl: string = ServerUrl.LOGIN;
     this.dataService.post({ url: loginUrl, data: this.formGroup.value, isLoader: true })
       .subscribe(
-        (response) => {
+        (response: any) => {
           console.log('Response = ' + JSON.stringify(response));
+
+          // Store Token in localstorage
+          localStorage.setItem(ApplicationConstants.KEY_TOKEN, response.token);
+
           this.router.navigateByUrl('home');
         },
         (err) => {

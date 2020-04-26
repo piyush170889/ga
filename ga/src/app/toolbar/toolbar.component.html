@@ -6,11 +6,11 @@
     </ion-col>
 
     <ion-col size="8" class="ion-text-center ion-align-self-center" style="color:#fff;">
-      9096409749
+      {{user.mobile1}}
     </ion-col>
 
     <ion-col size="2">
-      <img src="./assets/images/user.png" height="40px" width="40px" style="border-radius: 25px;">
+      <img (click)="updateProfile()" src="./assets/images/user.png" height="40px" width="40px" style="border-radius: 25px;">
     </ion-col>
 
   </ion-row>

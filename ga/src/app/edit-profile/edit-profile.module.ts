@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-import { RouterModule } from '@angular/router';
-
 
 import { EditProfilePageRoutingModule } from './edit-profile-routing.module';
-
 import { EditProfilePage } from './edit-profile.page';
-import { EditModalPage } from '../edit-modal/edit-modal.page';
-
+import { Utility } from '../core/utility';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
 
 @NgModule({
   imports: [
@@ -18,16 +14,10 @@ import { EditModalPage } from '../edit-modal/edit-modal.page';
     FormsModule,
     ReactiveFormsModule,
     IonicModule,
-    EditProfilePageRoutingModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: EditModalPage
-      },
-     
-
-    ])
+    EditProfilePageRoutingModule
   ],
-  declarations: [EditProfilePage,EditModalPage]
+  declarations: [EditProfilePage, ToolbarComponent],
+  exports: [ToolbarComponent],
+  providers: [Utility]
 })
-export class EditProfilePageModule {}
+export class EditProfilePageModule { }
