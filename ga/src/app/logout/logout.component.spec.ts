@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PhotogalleryPage } from './photogallery.page';
+import { LogoutComponent } from './logout.component';
 
-describe('PhotogalleryPage', () => {
-  let component: PhotogalleryPage;
-  let fixture: ComponentFixture<PhotogalleryPage>;
+describe('LogoutComponent', () => {
+  let component: LogoutComponent;
+  let fixture: ComponentFixture<LogoutComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PhotogalleryPage ],
+      declarations: [ LogoutComponent ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PhotogalleryPage);
+    fixture = TestBed.createComponent(LogoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

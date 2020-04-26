@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { stringify } from 'querystring';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DataService } from '../core/dataservices/data.service';
+import { ServerUrl } from '../core/constants/server-url';
+import { ApplicationConstants } from '../core/constants/application-constants';
+
 
 @Component({
   selector: 'app-login',
@@ -11,10 +14,12 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
 
   formGroup: FormGroup;
+  imageSrc: any = 'https://i.stack.imgur.com/l60Hf.png';
 
   constructor(
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dataService: DataService
   ) {
 
     let isLoggedIn: string = localStorage.getItem('isLoggedIn');
@@ -24,7 +29,7 @@ export class LoginComponent implements OnInit {
 
     this.formGroup = this.fb.group(
       {
-        username: ['', Validators.required],
+        mobile: ['', Validators.required],
         password: ['', Validators.required]
       }
     )
@@ -36,8 +41,26 @@ export class LoginComponent implements OnInit {
 
     console.log('login() called.');
 
-    this.router.navigateByUrl('home');
-    
+    console.log(this.formGroup.value);
+
+    const loginUrl: string = ServerUrl.LOGIN;
+    this.dataService.post({ url: loginUrl, data: this.formGroup.value, isLoader: true })
+      .subscribe(
+        (response: any) => {
+          console.log('Response = ' + JSON.stringify(response));
+
+          // Store Token in localstorage
+          localStorage.setItem(ApplicationConstants.KEY_TOKEN, response.token);
+
+          this.router.navigateByUrl('home');
+        },
+        (err) => {
+          console.log(err);
+
+        }
+      );
+
+    // this.router.navigateByUrl('home');
   }
 
 }

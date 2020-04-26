@@ -1,76 +1,67 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button auto-hide="false"></ion-menu-button>
-    </ion-buttons>
-    <ion-title>StudentDetails</ion-title>
-    <ion-buttons slot="end">
-      <img src="./assets/images/a.jpg" height="35px" width="35px">
-      <ion-button (click)="close()" color="danger">Close</ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-buttons slot="end">
 
-</ion-buttons>
+  <ion-toolbar style="--background: #33beff;">
+    <ion-row>
+      <ion-col size="2">
+        <ion-icon class="back-arrow-c" name="arrow-back-outline" (click)="close()"></ion-icon>
+      </ion-col>
+
+      <ion-col size="8" class="ion-text-center ion-align-self-center" style="color:#fff;">
+        {{user.mobile1}}
+      </ion-col>
+
+      <ion-col size="2">
+        <img [src]="user.img" height="40px" width="40px" style="border-radius: 25px;">
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+
+</ion-header>
 
 
 <ion-content fullscreen scroll-y="true">
   <ion-list>
 
-
-
-
     <ion-slides class="home-slide" autoplay="3000" loop>
-      <ion-slide>
-        <div class="slide">
-          <img src="/assets/images/a.jpg" />
 
+      <ion-slide *ngIf="user.img != ''">
+        <div class="slide">
+          <img [src]="user.img" />
+        </div>
+      </ion-slide>
+      <ion-slide *ngIf="user.img1 != ''">
+        <div class="slide">
+          <img [src]="user.img1" />
+        </div>
+      </ion-slide>
+      <ion-slide *ngIf="user.img1 != ''">
+        <div class="slide">
+          <img [src]="user.img1" />
         </div>
       </ion-slide>
 
-
-      <ion-slide>
-        <div class="slide">
-          <img src="/assets/images/a.jpg" height="40px" width="40px" />
-
-        </div>
-      </ion-slide>
-      <ion-slide>
-        <div class="slide">
-          <img src="/assets/images/a.jpg" />
-
-        </div>
-      </ion-slide>
-      <ion-slide>
-        <div class="slide">
-          <img src="/assets/images/a.jpg" />
-
-        </div>
-      </ion-slide>
     </ion-slides>
 
+    <ion-grid *ngIf="doShowDetails">
 
-
-    <ion-grid>
       <ion-row>
-        <ion-col size-md="6" offset-md="3">
 
-          <ion-card>
+        <ion-col size-md="12">
+
+          <ion-card class="details">
             <ion-card-title>
-              <h6><b>Name :</b> Farin</h6>
+              <h6><b>Name :</b>{{user.first_name}} {{user.last_name}}</h6>
             </ion-card-title>
             <ion-card-title>
-              <h6><b>Qualification :</b> MSC(cs)</h6>
+              <h6><b>Qualification :</b>{{user.qualification}}</h6>
             </ion-card-title>
             <ion-card-title>
-              <h6><b>City :</b> Nasik</h6>
+              <h6><b>City :</b>{{user.city}}</h6>
             </ion-card-title>
             <ion-card-title>
-              <h6><b>Age :</b> 22</h6>
+              <h6><b>Age :</b>{{diff_years(user.dob)}}</h6>
             </ion-card-title>
           </ion-card>
-
 
         </ion-col>
       </ion-row>

@@ -1,0 +1,36 @@
+.image {
+  height: 5vw;
+  width: 5vw;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px gray;
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 200px;
+}
+
+.circle-pic {
+  width: 220px;
+  height: 180px;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  margin-top: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+div.text {
+  text-align: left;
+}
+
+.camera-icon {
+  width: 30px;
+  height: 30px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}

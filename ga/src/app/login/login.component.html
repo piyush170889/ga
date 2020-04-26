@@ -2,7 +2,7 @@
 
     <div class="loginForm">
         <form [formGroup]="formGroup">
-            <input type="number" placeholder="Mobile No." formControlName="username" />
+            <input type="number" placeholder="Mobile No." formControlName="mobile" />
             <input type="password" placeholder="Password" formControlName="password" />
             <button type="button" [disabled]="!formGroup.valid" (click)="login()">Login</button>
         </form>

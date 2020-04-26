@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import { PhotogalleryPage } from '../photogallery/photogallery.page';
 import { StudentDetailsPage } from '../student-details/student-details.page';
-
+import { DataService } from '../core/dataservices/data.service';
+import { ServerUrl } from '../core/constants/server-url';
 
 
 @Component({
@@ -13,40 +13,83 @@ import { StudentDetailsPage } from '../student-details/student-details.page';
 export class HomePage {
 
   modalCtrl: any;
-  doClearLocalStorage: boolean = false;
-
-  constructor(public modalController: ModalController) {
-
-    if (this.doClearLocalStorage)
-      localStorage.clear();
-  }
-
-  async presentModal() {
-    const modal = await this.modalController.create({
-      component: PhotogalleryPage,
-      componentProps: {
-        'firstName': 'Farin',
-        'lastName': 'Shaikh',
-        'middleInitial': 'S'
-      }
-    });
-
-    await modal.present();
-    modal.onDidDismiss()
-      .then(res => alert(JSON.stringify(res)))
-  }
-
-  async StudentDetailsModal() {
+  users: any[] = [];
+  usersOrg: any[] = [];
+  term: string = '';
   
+    constructor(
+      private modalController: ModalController,
+      private dataService: DataService
+    ) {
+
+    this.dataService.get({ url: ServerUrl.USERS, isLoader: true })
+      .subscribe(
+        (response: any) => {
+          console.log('User Listing = ', response);
+
+          this.users = response.data;
+          this.usersOrg = response.data;
+        }
+      );
+  }
+
+
+  async presentModal(user: any) {
+
     const modal = await this.modalController.create({
       component: StudentDetailsPage,
       componentProps: {
+        doShowDetails: false,
+        user: user
       }
     });
 
     await modal.present();
     modal.onDidDismiss()
-      .then(res => alert(JSON.stringify(res)))
+      .then(res => console.log(JSON.stringify(res)))
   }
+
+  async studentDetailsModal(user) {
+
+    const modal = await this.modalController.create({
+      component: StudentDetailsPage,
+      componentProps: {
+        doShowDetails: true,
+        user: user
+      }
+    });
+
+    await modal.present();
+    modal.onDidDismiss()
+      .then(res => console.log(JSON.stringify(res)))
+  }
+
+
+  searchUser() {
+
+    console.log('searchUser() called');
+
+    // this.users = null;
+    console.log('term = ' + this.term);
+
+    if (this.term.trim() != '') {
+      let compareTerm = this.term.toLowerCase();
+      this.users = this.usersOrg.filter(
+        (user: any) => {
+          if (
+            (user.first_name.toLowerCase().indexOf(compareTerm) > -1)
+            || (user.last_name.toLowerCase().indexOf(compareTerm) > -1)
+            || (user.qualification.toLowerCase().indexOf(compareTerm) > -1)
+            || (user.city.toLowerCase().indexOf(compareTerm) > -1))
+            return true;
+        }
+      );
+      console.log('Filtered Users. users = ' + JSON.stringify(this.users));
+
+    } else {
+      this.users = Object.assign([], this.usersOrg);
+    }
+  }
+
 
 }

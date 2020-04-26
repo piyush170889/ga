@@ -1,0 +1,147 @@
+<ion-header>
+  <app-toolbar></app-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <h6>Personal Information</h6>
+
+  <form [formGroup]="formGroup">
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            First Name <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input formControlName="first_name" type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Last Name <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input formControlName="last_name" type="text"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Mobile No. 1 <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input formControlName="mobile1" type="number"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Mobile No. 2 <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input formControlName="mobile2" type="number"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Mobile No. 3 <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input formControlName="mobile3" type="number"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Gender <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-select placeholder="Gender" formControlName="gender">
+            <ion-select-option value="M">Male</ion-select-option>
+            <ion-select-option value="F">Female</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Birth Date <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-datetime formControlName="dob" min="1990-01-01"></ion-datetime>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            City <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-select placeholder="City" formControlName="city">
+            <ion-select-option value="PUN">Pune</ion-select-option>
+            <ion-select-option value="KOP">Kopargaon</ion-select-option>
+            <ion-select-option value="NSK">Nashik</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <h6>Eduction Information</h6>
+
+    <ion-row>
+      <ion-col size="12">
+        <ion-item>
+          <ion-label position="floating">
+            Qualification <ion-text color="danger">*</ion-text>
+          </ion-label>
+          <ion-input type="text" formControlName="qualification"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="8">
+        <h6 style="margin: 0 !important;">Qualification Certificate</h6>
+      </ion-col>
+      <ion-col size="4" (click)="openGallery()" style="align-self: center;">
+        <ion-icon name="attach-outline" color="primary"></ion-icon>
+      </ion-col>
+    </ion-row>
+
+    <div *ngIf="attachements.length > 0">
+      <ion-row *ngFor="let attachement of attachements; let i = index;">
+        <ion-col size="10">
+          <img [src]="attachement" alt="{{i}}" />
+        </ion-col>
+        <ion-col style="align-self: center;" size="2" (click)="removeAttachment(i)">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </div>
+
+    <div class="ion-padding">
+      <ion-button expand="block" (click)="updateUserData()" type="button" class="ion-no-margin">Update</ion-button>
+    </div>
+  </form>
+
+</ion-content>

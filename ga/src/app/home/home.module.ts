@@ -5,8 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
-import { PhotogalleryPage } from '../photogallery/photogallery.page';
 import { StudentDetailsPage } from '../student-details/student-details.page';
+import { DataService } from '../core/dataservices/data.service';
+import { Utility } from '../core/utility';
+import { EditProfilePageModule } from '../edit-profile/edit-profile.module';
+
 
 @NgModule({
   imports: [
@@ -20,14 +23,12 @@ import { StudentDetailsPage } from '../student-details/student-details.page';
       },
       {
         path: '',
-        component: PhotogalleryPage
-      },
-      {
-        path: '',
         component: StudentDetailsPage
-      },
-    ])
+      }
+    ]),
+    EditProfilePageModule
   ],
-  declarations: [HomePage, PhotogalleryPage, StudentDetailsPage]
+  declarations: [HomePage, StudentDetailsPage],
+  providers: [DataService, Utility]
 })
 export class HomePageModule { }
