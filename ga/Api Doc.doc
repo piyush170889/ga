@@ -1,5 +1,8 @@
-http://localhost/SampleAPI/public/api/users 
-GET
+GA - API Doc
+1.  User Listings:
+URL:- http://localhost/SampleAPI/public/api/users
+METHOD:- GET
+RESPONSE:-
 {
     "http_status": 200,
     "success": 1,
@@ -18,31 +21,17 @@ GET
             "active": "1",
             "created_at": "2020-03-13 14:44:36",
             "updated_at": "2020-03-13 14:44:36"
-        },
-        {
-            "id": 2,
-            "first_name": "test",
-            "last_name": "test",
-            "gender": "male",
-            "city": "test",
-            "qualification": "test",
-            "mobile1": "9234567891",
-            "mobile2": "9234567891",
-            "mobile3": "9234567891",
-            "dob": "2019-06-18",
-            "active": "1",
-            "created_at": "2020-04-24 10:02:00",
-            "updated_at": "2020-04-24 10:02:00"
         }
     ]
-} 
-USER LISTING
+}
 
 
-http://localhost/SampleAPI/public/api/register
- POST
+2. Registration:
+URL:- http://localhost/SampleAPI/public/api/register
+ METHOD:- POST
+REQUEST BODY:-
  {
- 	"first_name": "test",
+    "first_name": "test",
     "last_name":"test",
     "gender" :"male",
     "city" :"test",
@@ -52,29 +41,38 @@ http://localhost/SampleAPI/public/api/register
     "mobile1" :"9234567891",
     "mobile2" :"9234567891",
     "mobile3":"9234567891",
-    "password" :"123456789"
+    "password":"123456789"
  }
+RESPONSE BODY:-
 {
     "http_status": 200,
     "success": 1
 }
-USER REGISTRATION
 
-http://localhost/SampleAPI/public/api/login 
-POST
+
+
+
+3. Login
+URL:- http://localhost/SampleAPI/public/api/login
+METHOD:- POST
+REQUEST BODY:-
 {
 	"mobile" :"9234567891",
 	"password" :"123456789"
 }
+RESPONSE BODY:-
 {
     "success": 1,
     "http_status": 200,
     "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVmNGQ1ODVhNTgxMDVlM2ZlOTljZTBmYzQwMGFiM2IzN2Y1YTkzOGZkZjEyNTczNTQzZjc3ZjcxNjRhYTg5MDYwMjViMmI5OWYwYzQ5ZWUxIn0.eyJhdWQiOiIxIiwianRpIjoiNWY0ZDU4NWE1ODEwNWUzZmU5OWNlMGZjNDAwYWIzYjM3ZjVhOTM4ZmRmMTI1NzM1NDNmNzdmNzE2NGFhODkwNjAyNWIyYjk5ZjBjNDllZTEiLCJpYXQiOjE1ODc3MzU0MDQsIm5iZiI6MTU4NzczNTQwNCwiZXhwIjoxNjE5MjcxNDA0LCJzdWIiOiIyIiwic2NvcGVzIjpbXX0.bVAbnf2UIkTmktXG3uEEZMmLWUdynQ47HbxfpJ6ruGz7Eo0N7Y0UvCcCqymVNHvzakwWFDnXWGh2imEP-YPcMekvAcpmqTy_tmLBClwdHTJqCLBWkiGIhT_looBkNfvx59do-174acTSd5ZsQzVAgCG8CfrH1_nwKR1HD8NF_KqzFiep7it7mN66q5O13f4a39W5-p1rozX2un7ezBX6eNh49F0siQ3TS3zzDsj_vaYLeWaHgE1MpIn3RMqzFgLj9zUOb7UeP09tagFB5_GzQ3KqhTRoVCdTBUhGvft2fqP0DzBJ6y7njF22Tq_i9TgYebS2RFIOXQpTHU8g4d0J6htpj-iVrKvxxOVrVxXk4luXIK5vUVAKb7xbEcxMEjnvP0VGpJMgJdBS2Yxb2Nv39eZWqDJOjrOBjRv0WSqv7Qg-4fkQUNLxGu2llrzJY4JI2qFp8V-l6Z9QKmM1SvFvrVCv6jaGK5BB2GBDJxk6igD-SsxDDQUCLeuOkLQT2hYRK5ebe9vl7ehlHd4IvHUTPFCFs27hsV1QcCKjCI3XwL0h9oCwZW_AtC6nIqqgcGTbv2ZMzUBlcn-iFQYMsmXhnHiE5RFGPldtrkAgjpRL757eWw7gQpeurDWgkxynhUP4krE8wLgxL4MB4N4HuEXHqBouVq-MNkT_hVHk6WChFrA"
 }
-USER LOGIN
 
-http://localhost/SampleAPI/public/api/edit_user
-POST
+
+
+4. Edit User
+URL:- http://localhost/SampleAPI/public/api/edit_user
+METHOD:- POST
+REQUEST BODY:-
 {
 	"id" : "2",
 	"first_name" : "test1",
@@ -88,10 +86,25 @@ POST
 	"mobile2"  : "9234567891",
 	"mobile3"  : "9234567891"
 }
+RESPONSE BODY:-
 {
     "success": 200
 }
-EDIT USER
- 
- 
- 
+
+5. Get User Details
+URL:- http://localhost/SampleAPI/public/api/user
+METHOD:- GET
+RESPONSE BODY:-
+{
+	"id" : "2",
+	"first_name" : "test1",
+	"last_name"  : "test1",
+	"gender" : "male",
+	"city"  : "test",
+	"dob"  : "2017-11-12",
+	"qualification"  : "test",
+	"active"  : "1",
+	"mobile1"  : "9234567891",
+	"mobile2"  : "9234567891",
+	"mobile3"  : "9234567891"
+}
