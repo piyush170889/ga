@@ -10,9 +10,9 @@
         {{user.mobile1}}
       </ion-col>
 
-      <ion-col size="2">
-        <img [src]="user.img" height="40px" width="40px" style="border-radius: 25px;">
-      </ion-col>
+      <!-- <ion-col size="2">
+        <img src="https://i.stack.imgur.com/l60Hf.png" height="40px" width="40px" style="border-radius: 25px;">
+      </ion-col> -->
     </ion-row>
   </ion-toolbar>
 
@@ -24,21 +24,27 @@
 
     <ion-slides class="home-slide" autoplay="3000" loop>
 
-      <ion-slide *ngIf="user.img != ''">
+      <ion-slide *ngFor="let i of [1,2,3]">
         <div class="slide">
-          <img [src]="user.img" />
+          <img src="https://i.stack.imgur.com/l60Hf.png" />
+        </div>
+      </ion-slide>
+
+      <!-- <ion-slide *ngIf="user.img != ''">
+        <div class="slide">
+          <img [src]="https://i.stack.imgur.com/l60Hf.png" />
+        </div>
+      </ion-slide>
+      <ion-slide *ngIf="user.img1 != ''">
+        <div class="slide">
+          <img [src]="https://i.stack.imgur.com/l60Hf.png" />
         </div>
       </ion-slide>
       <ion-slide *ngIf="user.img1 != ''">
         <div class="slide">
           <img [src]="user.img1" />
         </div>
-      </ion-slide>
-      <ion-slide *ngIf="user.img1 != ''">
-        <div class="slide">
-          <img [src]="user.img1" />
-        </div>
-      </ion-slide>
+      </ion-slide> -->
 
     </ion-slides>
 
@@ -60,6 +66,18 @@
             </ion-card-title>
             <ion-card-title>
               <h6><b>Age :</b>{{diff_years(user.dob)}}</h6>
+            </ion-card-title>
+            <ion-card-title>
+              <h6><b>Gender :</b>{{user.gender}}</h6>
+            </ion-card-title>
+            <ion-card-title>
+              <h6><b>Mobile 1 :</b>{{user.mobile1}}</h6>
+            </ion-card-title>
+            <ion-card-title *ngIf="user.mobile2 != null || user.mobile2 != ''">
+              <h6><b>Mobile 2:</b>{{user.mobile2}}</h6>
+            </ion-card-title>
+            <ion-card-title *ngIf="user.mobile3 != null || user.mobile3 != ''">
+              <h6><b>Mobile 3:</b>{{user.mobile3}}</h6>
             </ion-card-title>
           </ion-card>
 

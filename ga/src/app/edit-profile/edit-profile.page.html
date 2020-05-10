@@ -1,5 +1,5 @@
 <ion-header>
-  <app-toolbar></app-toolbar>
+  <app-toolbar (userDataEvent)="updateUserDataFromChild($event)"></app-toolbar>
 </ion-header>
 
 <ion-content>
@@ -119,29 +119,31 @@
       </ion-col>
     </ion-row>
 
+    <div class="ion-padding">
+      <ion-button expand="block" (click)="updateUserData()" type="button" class="ion-no-margin">Update</ion-button>
+    </div>
+
     <ion-row>
       <ion-col size="8">
-        <h6 style="margin: 0 !important;">Qualification Certificate</h6>
+        <h6 style="margin: 0 !important;">Qualification Certificates</h6>
       </ion-col>
       <ion-col size="4" (click)="openGallery()" style="align-self: center;">
         <ion-icon name="attach-outline" color="primary"></ion-icon>
       </ion-col>
     </ion-row>
 
-    <div *ngIf="attachements.length > 0">
-      <ion-row *ngFor="let attachement of attachements; let i = index;">
+    <div *ngIf="attachments.length > 0">
+      <ion-row *ngFor="let attachement of attachments; let i = index;">
         <ion-col size="10">
-          <img [src]="attachement" alt="{{i}}" />
+          <!-- <img [src]="attachement" alt="{{i}}" /> -->
+          <img width="50" height="50" src="https://i.stack.imgur.com/l60Hf.png" alt="{{i}}" />
         </ion-col>
-        <ion-col style="align-self: center;" size="2" (click)="removeAttachment(i)">
+        <ion-col style="align-self: center;" size="2" (click)="removeAttachment(i, attachement)">
           <ion-icon name="close-circle-outline"></ion-icon>
         </ion-col>
       </ion-row>
     </div>
 
-    <div class="ion-padding">
-      <ion-button expand="block" (click)="updateUserData()" type="button" class="ion-no-margin">Update</ion-button>
-    </div>
   </form>
 
 </ion-content>

@@ -16,7 +16,7 @@ export class RegisterPage implements OnInit {
 
   formGroup: FormGroup;
   attachements: string[] = [];
-
+  profileImage: string = '';
 
   constructor(
     private router: Router,
@@ -43,7 +43,7 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  registerUser() {
+  async registerUser() {
 
     console.log('registerUser() called');
     console.log(this.formGroup.value);
@@ -51,43 +51,65 @@ export class RegisterPage implements OnInit {
     console.log(this.attachements);
 
     let data: any = this.formGroup.value;
-    data['attachments'] = this.attachements;
-    console.log('data = ', data);
+    console.log('Captured Data = ', data);
 
-    this.dataService.post({ url: ServerUrl.REGISTER, data: data, isLoader: true })
-      .subscribe(
-        (response) => {
-          console.log('Response = ' + JSON.stringify(response));
+    let dataKeys: string[] = Object.keys(data);
+    console.log('dataKeys = ', dataKeys);
 
-          const loginUrl: string = ServerUrl.LOGIN;
-          const loginData = {
-            mobile: data.mobile1,
-            password: data.password
-          };
+    var fd = new FormData();
+    dataKeys.forEach(
+      (key) => {
+        console.log('Key = ', key);
+        console.log('Value = ', data[key]);
 
-          this.dataService.post({ url: loginUrl, data: loginData, isLoader: true })
-            .subscribe(
-              (response: any) => {
-                console.log('Response = ' + JSON.stringify(response));
+        fd.append(key, data[key]);
+      }
+    )
 
-                // Store Token in localstorage
-                localStorage.setItem(ApplicationConstants.KEY_TOKEN, response.token);
+    this.attachements.forEach(
+      (attach) => {
+        fd.append('attachments[]',
+          new Blob([this.utility.convertBase64ToArrayBuffer(attach)]));
+      }
+    );
 
-                this.router.navigateByUrl('home');
-              },
-              (err) => {
-                console.log(err);
+    fd.append('profileImg', this.profileImage);
 
-              }
-            );
-        },
-        (err) => {
-          console.log(err);
+    let registerApiEndpoint: string = ServerUrl.MAIN + ServerUrl.REGISTER;
+    console.log('registerApiEndpoint = ', registerApiEndpoint);
 
-        }
-      )
+    console.log('Register Data = ', fd);
 
-    // this.router.navigateByUrl('home');
+    let isUploaded: boolean = await this.utility.uploadFormData(registerApiEndpoint, fd);
+
+    if (isUploaded) {
+
+      const loginUrl: string = ServerUrl.LOGIN;
+
+      const loginData = {
+        username: data.mobile1,
+        password: data.password
+      };
+      console.log('loginData = ', loginData);
+
+      this.dataService.post({ url: loginUrl, data: loginData, isLoader: true })
+        .subscribe(
+          (response: any) => {
+            console.log('response. = ', response);
+
+            // Store User Info in localstorage
+            console.log('userInfo = ', response.response);
+
+            localStorage.setItem(ApplicationConstants.LS_USER_INFO, JSON.stringify(response.response));
+
+            this.router.navigateByUrl('home');
+          },
+          (err) => {
+            console.log(err);
+
+          }
+        );
+    }
   }
 
   async openGallery() {
@@ -96,10 +118,23 @@ export class RegisterPage implements OnInit {
     this.attachements = await this.utility.openGallery(this.attachements);
   }
 
+  async openGalleryProfile() {
+
+    console.log('openGallery called');
+    let profileImageAttc: any[] = await this.utility.openGallery([])[0];
+    if (profileImageAttc && profileImageAttc.length > 0)
+      this.profileImage = profileImageAttc[0];
+  }
+
   removeAttachment(i: number) {
 
     console.log('Index To Remove = ' + i);
 
     this.attachements.splice(i, 1);
+  }
+
+  removeAttachmentProfile() {
+
+    this.profileImage = '';
   }
 }

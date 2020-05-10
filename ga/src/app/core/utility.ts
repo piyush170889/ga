@@ -52,4 +52,53 @@ export class Utility {
     }
 
 
+    public convertBase64ToArrayBuffer(base64: string): ArrayBuffer {
+
+        try {
+            let binary_string = window.atob(base64);
+            let len = binary_string.length;
+            let bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binary_string.charCodeAt(i);
+            }
+            return bytes.buffer;
+        } catch (e) {
+            console.log("Base64 = " + base64);
+            console.log(e);
+            throw e;
+        }
+    }
+
+    async uploadFormData(url: string, fd: FormData) {
+
+        let req = fetch(url, {
+            method: "post",
+            body: fd
+        });
+
+        let isUploaded: boolean = false;
+
+        return await req
+            .then(
+                async res => {
+                    if (res.ok) {
+
+                        console.log('res = ', res);
+                        isUploaded = true;
+                    } else {
+                        console.error(res);
+                        alert('Failed to upload document');
+                    }
+                    return isUploaded;
+                }
+            )
+            .catch(
+                (err) => {
+                    console.error(err);
+                    alert('Failed to upload document.');
+                    return isUploaded;
+                }
+            );
+    }
+
 }

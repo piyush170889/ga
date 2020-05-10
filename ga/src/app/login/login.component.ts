@@ -29,10 +29,10 @@ export class LoginComponent implements OnInit {
 
     this.formGroup = this.fb.group(
       {
-        mobile: ['', Validators.required],
+        username: ['', Validators.required],
         password: ['', Validators.required]
       }
-    )
+    );
   }
 
   ngOnInit() { }
@@ -49,8 +49,10 @@ export class LoginComponent implements OnInit {
         (response: any) => {
           console.log('Response = ' + JSON.stringify(response));
 
-          // Store Token in localstorage
-          localStorage.setItem(ApplicationConstants.KEY_TOKEN, response.token);
+          // Store User Info in localstorage
+          console.log('userInfo = ', response.response);
+          
+          localStorage.setItem(ApplicationConstants.LS_USER_INFO, JSON.stringify(response.response));
 
           this.router.navigateByUrl('home');
         },

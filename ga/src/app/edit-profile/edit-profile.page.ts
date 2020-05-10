@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../core/dataservices/data.service';
 import { ServerUrl } from '../core/constants/server-url';
 import { Utility } from '../core/utility';
+import { ApplicationConstants } from '../core/constants/application-constants';
+import { ToolbarComponent } from '../toolbar/toolbar.component';
 
 
 @Component({
@@ -14,8 +16,9 @@ import { Utility } from '../core/utility';
 export class EditProfilePage implements OnInit {
 
   formGroup: FormGroup;
-  attachements: string[] = [];
+  attachments: string[] = [];
   user: any = {};
+  // @ViewChild(ToolbarComponent, { static: false }) toolbarChildComponent: ToolbarComponent;
 
   constructor(
     private router: Router,
@@ -23,6 +26,8 @@ export class EditProfilePage implements OnInit {
     private dataService: DataService,
     private utility: Utility
   ) {
+
+    console.log('Attachments Legth = ', this.attachments.length);
 
     this.formGroup = this.fb.group({
       id: [this.user.id, Validators.required],
@@ -36,36 +41,76 @@ export class EditProfilePage implements OnInit {
       mobile1: [this.user.mobile1, Validators.required],
       mobile2: [this.user.mobile2, Validators.required],
       mobile3: [this.user.mobile3, Validators.required],
-      password: ['', Validators.required]
+      // password: ['', Validators.required]
     });
   }
 
   ngOnInit() {
 
-    let userDetailsApi: string = ServerUrl.USER_DTLS;
-    this.dataService.get({ url: userDetailsApi })
-      .subscribe(
-        (response: any) => {
-          console.log('response = ', response);
-          this.user = response;
+    // let userInfo: any = localStorage.getItem(ApplicationConstants.LS_USER_INFO);
 
-          this.formGroup.controls['id'].setValue(this.user.id);
-          this.formGroup.controls['first_name'].setValue(this.user.first_name);
-          this.formGroup.controls['last_name'].setValue(this.user.last_name);
-          this.formGroup.controls['gender'].setValue(this.user.gender);
-          this.formGroup.controls['city'].setValue(this.user.city);
-          this.formGroup.controls['dob'].setValue(this.user.dob);
-          this.formGroup.controls['qualification'].setValue(this.user.qualification);
-          this.formGroup.controls['active'].setValue(this.user.active);
-          this.formGroup.controls['mobile1'].setValue(this.user.mobile1);
-          this.formGroup.controls['mobile2'].setValue(this.user.mobile2);
-          this.formGroup.controls['mobile3'].setValue(this.user.mobile3);
-        },
-        (err) => {
-          console.log('Error', err);
-          alert('Error Ocuured Getting User Details');
-        }
-      );
+    // if (userInfo) {
+    //   userInfo = JSON.parse(userInfo);
+    //   let userDetailsApi: string = ServerUrl.USER_DTLS + userInfo.id;
+    //   console.log('userDetailsApi = ', userDetailsApi);
+
+    //   this.dataService.get({ url: userDetailsApi })
+    //     .subscribe(
+    //       (response: any) => {
+    //         console.log('response = ', response);
+    //         this.user = response.response[0];
+
+    //         this.formGroup.controls['id'].setValue(this.user.id);
+    //         this.formGroup.controls['first_name'].setValue(this.user.first_name);
+    //         this.formGroup.controls['last_name'].setValue(this.user.last_name);
+    //         this.formGroup.controls['gender'].setValue(this.user.gender);
+    //         this.formGroup.controls['city'].setValue(this.user.city);
+    //         this.formGroup.controls['dob'].setValue(this.user.dob);
+    //         this.formGroup.controls['qualification'].setValue(this.user.qualification);
+    //         this.formGroup.controls['active'].setValue(this.user.active);
+    //         this.formGroup.controls['mobile1'].setValue(this.user.mobile1);
+    //         this.formGroup.controls['mobile2'].setValue(this.user.mobile2);
+    //         this.formGroup.controls['mobile3'].setValue(this.user.mobile3);
+
+    //         this.user.attachments.array.forEach(attachement => {
+    //           let downloadUrl: string = '/download.php?id=' + attachement.id;
+    //           this.attachments.push(downloadUrl);
+    //         });
+    //       },
+    //       (err) => {
+    //         console.log('Error', err);
+    //         alert('Error Ocuured Getting User Details');
+    //       }
+    //     );
+    // } else {
+    //   console.log('No User Info found in storage');
+    //   this.router.navigateByUrl('logout');
+    // }
+  }
+
+  updateUserDataFromChild(eventData: any) {
+
+    console.log('User Data = ', eventData);
+
+    this.user = eventData;
+    console.log('User from child = ', this.user);
+
+    this.formGroup.controls['id'].setValue(this.user.id);
+    this.formGroup.controls['first_name'].setValue(this.user.first_name);
+    this.formGroup.controls['last_name'].setValue(this.user.last_name);
+    this.formGroup.controls['gender'].setValue(this.user.gender);
+    this.formGroup.controls['city'].setValue(this.user.city);
+    this.formGroup.controls['dob'].setValue(this.user.dob);
+    this.formGroup.controls['qualification'].setValue(this.user.qualification);
+    this.formGroup.controls['active'].setValue(this.user.active);
+    this.formGroup.controls['mobile1'].setValue(this.user.mobile1);
+    this.formGroup.controls['mobile2'].setValue(this.user.mobile2);
+    this.formGroup.controls['mobile3'].setValue(this.user.mobile3);
+
+    this.user.attachments.forEach(attachement => {
+      let downloadUrl: string = '/download.php?id=' + attachement.id;
+      this.attachments.push(downloadUrl);
+    });
   }
 
   updateUserData() {
@@ -73,10 +118,10 @@ export class EditProfilePage implements OnInit {
     console.log('updateUserData() called');
     console.log(this.formGroup.value);
     console.log('Attachments = ');
-    console.log(this.attachements);
+    console.log(this.attachments);
 
     let data: any = this.formGroup.value;
-    data['attachments'] = this.attachements;
+    data['attachments'] = this.attachments;
     console.log('data = ', data);
 
     this.dataService.post({ url: ServerUrl.EDIT_USERS, data: data, isLoader: true })
@@ -92,16 +137,91 @@ export class EditProfilePage implements OnInit {
       );
   }
 
+  removeAttachment(i: number, attachment: string) {
+
+    console.log('Index To Remove = ' + i + ', attchment = ' + attachment);
+
+    let confirmDelete = confirm('Are you sure you want to delete this item?');
+
+    if (confirmDelete) {
+
+      let deleteApiEndpoint: string = ServerUrl.DELETE_ATTC + attachment.split('=')[1];
+      console.log('deleteApiEndpoint = ', deleteApiEndpoint);
+
+      this.dataService.delete({ url: deleteApiEndpoint, isLoader: true })
+        .subscribe(
+          (response) => {
+            console.log('Resposne = ', response);
+            this.attachments.splice(i, 1);
+          }
+        )
+    }
+  }
+
   async openGallery() {
 
     console.log('openGallery called');
-    this.attachements = await this.utility.openGallery(this.attachements);
+    let galleryAttachments: any[] = [];
+    galleryAttachments = await this.utility.openGallery(galleryAttachments);
+    console.log('galleryAttachments = ', galleryAttachments);
+
+    let fd: FormData = this.getFormDataWithFileContent('fileContent', galleryAttachments[0]);
+    fd.append('id', this.user.id);
+    fd.append('doc_type', 'ATTC');
+
+    let uploadDocApiEndpoint: string = ServerUrl.MAIN + ServerUrl.UPLOAD_DOC;
+    let isUploaded: boolean = await this.utility.uploadFormData(uploadDocApiEndpoint, fd);
+
+    if (isUploaded) {
+      let userDetailsApi: string = ServerUrl.USER_DTLS + this.user.id;
+      console.log('userDetailsApi = ', userDetailsApi);
+
+      this.dataService.get({ url: userDetailsApi })
+        .subscribe(
+          (response: any) => {
+            console.log('response = ', response);
+            this.user = response.response[0];
+
+            this.formGroup.controls['id'].setValue(this.user.id);
+            this.formGroup.controls['first_name'].setValue(this.user.first_name);
+            this.formGroup.controls['last_name'].setValue(this.user.last_name);
+            this.formGroup.controls['gender'].setValue(this.user.gender);
+            this.formGroup.controls['city'].setValue(this.user.city);
+            this.formGroup.controls['dob'].setValue(this.user.dob);
+            this.formGroup.controls['qualification'].setValue(this.user.qualification);
+            this.formGroup.controls['active'].setValue(this.user.active);
+            this.formGroup.controls['mobile1'].setValue(this.user.mobile1);
+            this.formGroup.controls['mobile2'].setValue(this.user.mobile2);
+            this.formGroup.controls['mobile3'].setValue(this.user.mobile3);
+
+            this.attachments = [];
+            this.user.attachments.array.forEach(attachement => {
+              let downloadUrl: string = '/download.php?id=' + attachement.id;
+              this.attachments.push(downloadUrl);
+            });
+          },
+          (err) => {
+            console.log('Error', err);
+            alert('Error Ocuured Getting User Details');
+          }
+        );
+    }
   }
 
-  removeAttachment(i: number) {
+  private getFormDataWithFileContent(key: string, fileContent: string): FormData {
 
-    console.log('Index To Remove = ' + i);
+    try {
+      console.log('getFormDataWithFileContent called');
+      var fd = new FormData();
+      fd.append(
+        key,
+        new Blob([this.utility.convertBase64ToArrayBuffer(fileContent)])
+      );
 
-    this.attachements.splice(i, 1);
+      return fd;
+    } catch (e) {
+      throw e;
+    }
   }
+
 }

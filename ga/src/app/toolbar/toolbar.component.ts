@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../core/dataservices/data.service';
 import { ServerUrl } from '../core/constants/server-url';
+import { ApplicationConstants } from '../core/constants/application-constants';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
@@ -11,27 +13,40 @@ import { ServerUrl } from '../core/constants/server-url';
 export class ToolbarComponent implements OnInit {
 
   user: any = {};
+  @Output() userDataEvent = new EventEmitter();
 
   constructor(
     private router: Router,
     private dataService: DataService
-  ) { }
+  ) {
+    let userInfo: any = localStorage.getItem(ApplicationConstants.LS_USER_INFO);
+
+    if (userInfo) {
+      userInfo = JSON.parse(userInfo);
+      let userDetailsApi: string = ServerUrl.USER_DTLS + userInfo.id;
+      console.log('userDetailsApi = ', userDetailsApi);
+
+      this.dataService.get({ url: userDetailsApi })
+        .subscribe(
+          (response: any) => {
+            console.log('response = ', response);
+            this.user = response.response[0];
+
+            localStorage.setItem(ApplicationConstants.LS_USER_INFO, JSON.stringify(this.user));
+            this.userDataEvent.emit(this.user);
+          },
+          (err) => {
+            console.log('Error', err);
+            alert('Error Occured Getting User Details');
+          }
+        );
+    } else {
+      console.log('User Not Logged In');
+      this.router.navigateByUrl('logout');
+    }
+  }
 
   ngOnInit() {
-
-    let userDetailsApi: string = ServerUrl.USER_DTLS;
-
-    this.dataService.get({ url: userDetailsApi })
-      .subscribe(
-        (response: any) => {
-          console.log('response = ', response);
-          this.user = response;
-        },
-        (err) => {
-          console.log('Error', err);
-          alert('Error Occured Getting User Details');
-        }
-      );
   }
 
   updateProfile() {
@@ -46,4 +61,8 @@ export class ToolbarComponent implements OnInit {
     this.user = user;
   }
 
+  getUserDetails(): any {
+
+    return this.user;
+  }
 }
