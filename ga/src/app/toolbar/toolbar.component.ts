@@ -4,6 +4,7 @@ import { DataService } from '../core/dataservices/data.service';
 import { ServerUrl } from '../core/constants/server-url';
 import { ApplicationConstants } from '../core/constants/application-constants';
 import { EventEmitter } from '@angular/core';
+import { Utility } from '../core/utility';
 
 @Component({
   selector: 'app-toolbar',
@@ -17,7 +18,8 @@ export class ToolbarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private dataService: DataService
+    private dataService: DataService,
+    private utility: Utility
   ) {
     let userInfo: any = localStorage.getItem(ApplicationConstants.LS_USER_INFO);
 
@@ -64,5 +66,10 @@ export class ToolbarComponent implements OnInit {
   getUserDetails(): any {
 
     return this.user;
+  }
+
+  getDownloadLink(saved_file_name) {
+
+    return this.utility.getDownloadLink(saved_file_name, 'PR');
   }
 }

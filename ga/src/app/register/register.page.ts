@@ -46,69 +46,79 @@ export class RegisterPage implements OnInit {
   async registerUser() {
 
     console.log('registerUser() called');
-    console.log(this.formGroup.value);
-    console.log('Attachments = ');
-    console.log(this.attachements);
 
-    let data: any = this.formGroup.value;
-    console.log('Captured Data = ', data);
+    if (this.attachements.length > 0) {
 
-    let dataKeys: string[] = Object.keys(data);
-    console.log('dataKeys = ', dataKeys);
+      if (this.profileImage == '') {
+        console.log(this.formGroup.value);
+        console.log('Attachments = ');
+        console.log(this.attachements);
 
-    var fd = new FormData();
-    dataKeys.forEach(
-      (key) => {
-        console.log('Key = ', key);
-        console.log('Value = ', data[key]);
+        let data: any = this.formGroup.value;
+        console.log('Captured Data = ', data);
 
-        fd.append(key, data[key]);
-      }
-    )
+        let dataKeys: string[] = Object.keys(data);
+        console.log('dataKeys = ', dataKeys);
 
-    this.attachements.forEach(
-      (attach) => {
-        fd.append('attachments[]',
-          new Blob([this.utility.convertBase64ToArrayBuffer(attach)]));
-      }
-    );
+        var fd = new FormData();
+        dataKeys.forEach(
+          (key) => {
+            console.log('Key = ', key);
+            console.log('Value = ', data[key]);
 
-    fd.append('profileImg', this.profileImage);
+            fd.append(key, data[key]);
+          }
+        )
 
-    let registerApiEndpoint: string = ServerUrl.MAIN + ServerUrl.REGISTER;
-    console.log('registerApiEndpoint = ', registerApiEndpoint);
-
-    console.log('Register Data = ', fd);
-
-    let isUploaded: boolean = await this.utility.uploadFormData(registerApiEndpoint, fd);
-
-    if (isUploaded) {
-
-      const loginUrl: string = ServerUrl.LOGIN;
-
-      const loginData = {
-        username: data.mobile1,
-        password: data.password
-      };
-      console.log('loginData = ', loginData);
-
-      this.dataService.post({ url: loginUrl, data: loginData, isLoader: true })
-        .subscribe(
-          (response: any) => {
-            console.log('response. = ', response);
-
-            // Store User Info in localstorage
-            console.log('userInfo = ', response.response);
-
-            localStorage.setItem(ApplicationConstants.LS_USER_INFO, JSON.stringify(response.response));
-
-            this.router.navigateByUrl('home');
-          },
-          (err) => {
-            console.log(err);
-
+        this.attachements.forEach(
+          (attach) => {
+            fd.append('attachments[]',
+              new Blob([this.utility.convertBase64ToArrayBuffer(attach)]));
           }
         );
+
+        fd.append('profileImg', this.profileImage);
+
+        let registerApiEndpoint: string = ServerUrl.MAIN + ServerUrl.REGISTER;
+        console.log('registerApiEndpoint = ', registerApiEndpoint);
+
+        console.log('Register Data = ', fd);
+
+        let isUploaded: boolean = await this.utility.uploadFormData(registerApiEndpoint, fd);
+
+        if (isUploaded) {
+
+          const loginUrl: string = ServerUrl.LOGIN;
+
+          const loginData = {
+            username: data.mobile1,
+            password: data.password
+          };
+          console.log('loginData = ', loginData);
+
+          this.dataService.post({ url: loginUrl, data: loginData, isLoader: true })
+            .subscribe(
+              (response: any) => {
+                console.log('response. = ', response);
+
+                // Store User Info in localstorage
+                console.log('userInfo = ', response.response);
+
+                localStorage.setItem(ApplicationConstants.LS_USER_INFO, JSON.stringify(response.response));
+
+                this.router.navigateByUrl('home');
+              },
+              (err) => {
+                console.log(err);
+
+              }
+            );
+        }
+      } else {
+        alert('Please upload profile image');
+      }
+    } else {
+      alert('Please upload atleast 1 qualification certificate');
     }
   }
 

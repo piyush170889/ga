@@ -10,7 +10,8 @@
     </ion-col>
 
     <ion-col size="2">
-      <img (click)="updateProfile()" src="./assets/images/user.png" height="40px" width="40px" style="border-radius: 25px;">
+      <img *ngIf="user.profileImg" (click)="updateProfile()" [src]="getDownloadLink(user.profileImg.saved_file_name)"
+        height="40px" width="40px" style="border-radius: 50%;">
     </ion-col>
 
   </ion-row>

@@ -34,4 +34,9 @@ export class StudentDetailsPage implements OnInit {
 
     return this.utlitiy.diff_years(d1, d2);
   }
+
+  getDownloadLink(saved_file_name) {
+
+    return this.utlitiy.getDownloadLink(saved_file_name, 'ATTC');
+  }
 }

@@ -1,7 +1,7 @@
 export class ServerUrl {
 
-    // public static MAIN: string = 'http://localhost/SampleAPI/public/api/';
-    public static MAIN: string = 'http://localhost/ga/api/';
+    public static MAIN: string = 'http://192.168.2.7/ga/api/';
+    // public static MAIN: string = 'http://localhost/ga/api/';
 
     public static REGISTER: string = 'register.php';
 

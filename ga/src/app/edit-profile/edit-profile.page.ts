@@ -199,6 +199,8 @@ export class EditProfilePage implements OnInit {
               let downloadUrl: string = '/download.php?id=' + attachement.id;
               this.attachments.push(downloadUrl);
             });
+
+            alert('Certificate uplaoded successfully')
           },
           (err) => {
             console.log('Error', err);
@@ -224,4 +226,7 @@ export class EditProfilePage implements OnInit {
     }
   }
 
+  getDownloadLink(saved_file_name) {
+    return this.utility.getDownloadLink(saved_file_name, 'ATTC');
+  }
 }

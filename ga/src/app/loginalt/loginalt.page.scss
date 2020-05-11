@@ -1,0 +1,59 @@
+input,
+input:focus {
+    border: 1px solid #cecece;
+    width: 90%;
+    border-radius: 15px;
+    padding: 2%;
+    margin: 5% 0;
+    text-align: center;
+}
+button {
+    padding: 3%;
+    border-radius: 20px;
+    width: 50%;
+    text-transform: uppercase;
+    font-weight: bold;
+    background-color: #33beff;
+    color: #ffffff;
+}
+p {
+    font-size: 12px;
+    color: #000;
+    font-style: italic;
+    margin-top: 5%;
+    text-align: center;
+    span {
+        color: #33beff;
+        cursor: pointer;
+    }
+}
+
+.userProfileImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10vh;
+    img {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+    }
+}
+
+.as-c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    ion-icon {
+        margin-top: 15vh !important;
+        width: 8vw;
+        height: 4vh;
+        color: dodgerblue;
+    }
+}
+
+ion-item {
+    color: #cecece;
+    margin-top: 4vh;
+}

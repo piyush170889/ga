@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { CameraOptions, Camera } from "@ionic-native/camera/ngx";
+import { ServerUrl } from "./constants/server-url";
 
 @Injectable()
 export class Utility {
@@ -101,4 +102,9 @@ export class Utility {
             );
     }
 
+
+    getDownloadLink(fileName: string, docType: string) {
+
+        return ServerUrl.MAIN + 'download.php?fileName=' + fileName + '&docType=' + docType;
+    }
 }

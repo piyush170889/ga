@@ -24,27 +24,11 @@
 
     <ion-slides class="home-slide" autoplay="3000" loop>
 
-      <ion-slide *ngFor="let i of [1,2,3]">
+      <ion-slide *ngFor="let attachment of user.attachments">
         <div class="slide">
-          <img src="https://i.stack.imgur.com/l60Hf.png" />
+          <img [src]="getDownloadLink(attachment.saved_file_name)" />
         </div>
       </ion-slide>
-
-      <!-- <ion-slide *ngIf="user.img != ''">
-        <div class="slide">
-          <img [src]="https://i.stack.imgur.com/l60Hf.png" />
-        </div>
-      </ion-slide>
-      <ion-slide *ngIf="user.img1 != ''">
-        <div class="slide">
-          <img [src]="https://i.stack.imgur.com/l60Hf.png" />
-        </div>
-      </ion-slide>
-      <ion-slide *ngIf="user.img1 != ''">
-        <div class="slide">
-          <img [src]="user.img1" />
-        </div>
-      </ion-slide> -->
 
     </ion-slides>
 

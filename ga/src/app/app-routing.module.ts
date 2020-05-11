@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-import { from } from 'rxjs';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 
@@ -11,6 +10,10 @@ const routes: Routes = [
     path: '',
     component: LoginComponent,
     // loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule), 
+  },
+  {
+    path: 'loginalt',
+    loadChildren: () => import('./loginalt/loginalt.module').then(m => m.LoginaltPageModule),
   },
   {
     path: 'logout',
@@ -28,6 +31,10 @@ const routes: Routes = [
   {
     path: 'home/edit-user',
     loadChildren: () => import('./edit-profile/edit-profile.module').then(m => m.EditProfilePageModule)
+  },
+  {
+    path: 'loginalt',
+    loadChildren: () => import('./loginalt/loginalt.module').then(m => m.LoginaltPageModule)
   }
 ];
 

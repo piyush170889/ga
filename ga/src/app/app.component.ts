@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Platform, MenuController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { ApplicationConstants } from './core/constants/application-constants';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -29,9 +31,15 @@ export class AppComponent implements OnInit {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private router: Router
   ) {
     this.initializeApp();
+
+    let userInfo = localStorage.getItem(ApplicationConstants.LS_USER_INFO);
+    if (userInfo) {
+      this.router.navigateByUrl('loginalt');
+    }
   }
 
   initializeApp() {

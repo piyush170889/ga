@@ -3,6 +3,7 @@ import { ModalController } from '@ionic/angular';
 import { StudentDetailsPage } from '../student-details/student-details.page';
 import { DataService } from '../core/dataservices/data.service';
 import { ServerUrl } from '../core/constants/server-url';
+import { Utility } from '../core/utility';
 
 
 @Component({
@@ -16,11 +17,12 @@ export class HomePage {
   users: any[] = [];
   usersOrg: any[] = [];
   term: string = '';
-  
-    constructor(
-      private modalController: ModalController,
-      private dataService: DataService
-    ) {
+
+  constructor(
+    private modalController: ModalController,
+    private dataService: DataService,
+    private utility: Utility
+  ) {
 
     this.dataService.get({ url: ServerUrl.USERS, isLoader: true })
       .subscribe(
@@ -91,5 +93,13 @@ export class HomePage {
     }
   }
 
+  getDownloadLink(user) {
+
+    if (user.attachments.length > 0) {
+      return this.utility.getDownloadLink(user.attachments[0].saved_file_name, 'ATTC');
+    } else {
+      return 'https://i.stack.imgur.com/l60Hf.png';
+    }
+  }
 
 }
