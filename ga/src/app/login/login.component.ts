@@ -38,13 +38,10 @@ export class LoginComponent implements OnInit {
 
     console.log(this.formGroup.value);
 
-    alert(JSON.stringify(this.formGroup.value));
-
     const loginUrl: string = ServerUrl.LOGIN;
     this.dataService.post({ url: loginUrl, data: this.formGroup.value, isLoader: true })
       .subscribe(
         (response: any) => {
-          alert('Successfull Login. Resposne = ' + JSON.stringify(response));
           console.log('Response = ' + JSON.stringify(response));
 
           let res: any = JSON.parse(JSON.stringify(response));

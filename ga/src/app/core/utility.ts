@@ -52,7 +52,6 @@ export class Utility {
         }
     }
 
-
     public convertBase64ToArrayBuffer(base64: string): ArrayBuffer {
 
         try {

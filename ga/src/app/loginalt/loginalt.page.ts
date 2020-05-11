@@ -113,4 +113,10 @@ export class LoginaltPage implements OnInit {
 
     this.router.navigateByUrl('logout');
   }
+
+  openTnc() {
+
+    console.log('openTnc()');
+    this.router.navigateByUrl('tnc');
+  }
 }

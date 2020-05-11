@@ -17,8 +17,11 @@ const routes: Routes = [
   },
   {
     path: 'logout',
-    component: LogoutComponent,
-    // loadChildren: () => import('./register/register.module').then(m => m.RegisterPageModule), 
+    component: LogoutComponent
+  },
+  {
+    path: 'tnc',
+    loadChildren: () => import('./tnc/tnc.module').then(m => m.TncPageModule), 
   },
   {
     path: 'register',

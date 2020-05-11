@@ -108,10 +108,6 @@ export class EditProfilePage implements OnInit {
     this.formGroup.controls['mobile3'].setValue(this.user.mobile3);
 
     this.attachments = this.user.attachments;
-    // this.user.attachments.forEach(attachement => {
-    //   let downloadUrl: string = '/download.php?id=' + attachement.id;
-    //   this.attachments.push(downloadUrl);
-    // });
   }
 
   updateUserData() {

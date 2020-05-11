@@ -5,6 +5,11 @@
       <img (click)="updateProfile()" [src]="getDownloadLink(user.profileImg.saved_file_name)" />
     </ion-col>
   </ion-row>
+  <ion-row>
+    <ion-col size="12" class="userProfileImg" style="margin-top: 1vh !important;">
+      <p>{{ user.first_name }} {{ user.last_name }}</p>
+    </ion-col>
+  </ion-row>
 
   <ion-row>
     <ion-col size="12">
@@ -15,13 +20,18 @@
           <ion-label>Logout</ion-label>
           <ion-toggle color="primary" (ionChange)="logoutUser()" checked="true"></ion-toggle>
         </ion-item>
+        <ion-item>
+          <ion-label style="color: #33beff;cursor: pointer;" (click)="openTnc()">Terms And Conditions</ion-label>
+        </ion-item>
       </form>
     </ion-col>
   </ion-row>
 
-  <ion-row *ngIf="isFingerPrintAvailable">
+  <!-- <ion-row *ngIf="isFingerPrintAvailable"> -->
+  <ion-row>
     <ion-col size="12" class="as-c">
       <ion-icon name="finger-print-outline"></ion-icon>
     </ion-col>
   </ion-row>
+
 </ion-content>

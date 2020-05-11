@@ -38,6 +38,13 @@ p {
         width: 150px;
         height: 150px;
     }
+    p {
+        font-style: normal;
+        font-size: 16px;
+        color: #cecece;
+        text-align: center;
+        margin: 0 !important;
+    }
 }
 
 .as-c {
@@ -46,7 +53,7 @@ p {
     align-items: center;
     flex-direction: column;
     ion-icon {
-        margin-top: 15vh !important;
+        margin-top: 5vh !important;
         width: 8vw;
         height: 4vh;
         color: dodgerblue;

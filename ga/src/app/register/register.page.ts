@@ -17,6 +17,7 @@ export class RegisterPage implements OnInit {
   formGroup: FormGroup;
   attachements: string[] = [];
   profileImage: string = '';
+  qualificationMasterData: any[] = ['Qual1', 'Qual2', 'Qual3'];
 
   constructor(
     private router: Router,
