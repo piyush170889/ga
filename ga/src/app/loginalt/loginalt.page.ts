@@ -23,7 +23,7 @@ export class LoginaltPage implements OnInit {
     private fb: FormBuilder,
     private dataService: DataService,
     private utility: Utility,
-    private faio: FingerprintAIO
+    //private faio: FingerprintAIO
   ) {
 
     // let fingetPrintOptions: FingerprintOptions = {

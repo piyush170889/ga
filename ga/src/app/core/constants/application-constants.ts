@@ -4,4 +4,5 @@ export class ApplicationConstants {
 
     public static LS_USER_INFO = 'ga_user_info';
 
+    public static SPLIT_KEY_BASE64 = 'base64,';
 }

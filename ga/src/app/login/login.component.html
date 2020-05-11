@@ -4,7 +4,7 @@
         <form [formGroup]="formGroup">
             <input type="number" placeholder="Mobile No." formControlName="username" />
             <input type="password" placeholder="Password" formControlName="password" />
-            <button type="button" [disabled]="!formGroup.valid" (click)="login()">Login</button>
+            <button type="button" (click)="login()">Login</button>
         </form>
 
         <p>New User?<span routerLink='/register'> Sign Up!!</span></p>

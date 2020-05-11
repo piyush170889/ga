@@ -127,16 +127,15 @@
         <ion-icon name="attach-outline" color="primary"></ion-icon>
       </ion-col>
     </ion-row>
-    <div *ngIf="profileImage != ''">
-      <ion-row>
-        <ion-col size="10">
-          <img [src]="profileImage" alt="profileImage" />
-        </ion-col>
-        <ion-col style="align-self: center;" size="2" (click)="removeAttachmentProfile()">
-          <ion-icon name="close-circle-outline"></ion-icon>
-        </ion-col>
-      </ion-row>
-    </div>
+
+    <ion-row *ngIf="profileImage != ''">
+      <ion-col size="10">
+        <img [src]="profileImage" alt="profileImage" />
+      </ion-col>
+      <ion-col style="align-self: center;" size="2" (click)="removeAttachmentProfile()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
 
 
     <h6>Eduction Information</h6>

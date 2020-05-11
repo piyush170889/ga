@@ -49,7 +49,7 @@ export class RegisterPage implements OnInit {
 
     if (this.attachements.length > 0) {
 
-      if (this.profileImage == '') {
+      if (this.profileImage != '') {
         console.log(this.formGroup.value);
         console.log('Attachments = ');
         console.log(this.attachements);
@@ -63,21 +63,21 @@ export class RegisterPage implements OnInit {
         var fd = new FormData();
         dataKeys.forEach(
           (key) => {
-            console.log('Key = ', key);
-            console.log('Value = ', data[key]);
-
             fd.append(key, data[key]);
           }
         )
 
         this.attachements.forEach(
           (attach) => {
+            let attachmentTopass: string = attach.split(ApplicationConstants.SPLIT_KEY_BASE64)[1];
             fd.append('attachments[]',
-              new Blob([this.utility.convertBase64ToArrayBuffer(attach)]));
+              new Blob([this.utility.convertBase64ToArrayBuffer(attachmentTopass)]));
           }
         );
 
-        fd.append('profileImg', this.profileImage);
+        this.profileImage = this.profileImage.split(ApplicationConstants.SPLIT_KEY_BASE64)[1];
+        console.log('profileImg = ', this.profileImage);
+        fd.append('profileImg', new Blob([this.utility.convertBase64ToArrayBuffer(this.profileImage)]));
 
         let registerApiEndpoint: string = ServerUrl.MAIN + ServerUrl.REGISTER;
         console.log('registerApiEndpoint = ', registerApiEndpoint);
@@ -130,8 +130,10 @@ export class RegisterPage implements OnInit {
 
   async openGalleryProfile() {
 
-    console.log('openGallery called');
-    let profileImageAttc: any[] = await this.utility.openGallery([])[0];
+    console.log('openGalleryProfile called');
+    let profileImageAttc: any[] = await this.utility.openGallery([]);
+    console.log('profileImageAttc = ', profileImageAttc);
+
     if (profileImageAttc && profileImageAttc.length > 0)
       this.profileImage = profileImageAttc[0];
   }

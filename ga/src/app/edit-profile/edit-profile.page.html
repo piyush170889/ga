@@ -133,12 +133,12 @@
     </ion-row>
 
     <div *ngIf="attachments.length > 0">
-      <ion-row *ngFor="let attachement of user.attachments; let i = index;">
+      <ion-row *ngFor="let attachement of attachments; let i = index;">
         <ion-col size="10">
-          <img [src]="getDownloadLink(attachement.saved_file_name)" alt="{{i}}" />
+          <img width="150px" height="150px" [src]="getDownloadLink(attachement.saved_file_name)" alt="{{i}}" />
           <!-- <img width="50" height="50" src="https://i.stack.imgur.com/l60Hf.png" alt="{{i}}" /> -->
         </ion-col>
-        <ion-col style="align-self: center;" size="2" (click)="removeAttachment(i, attachement)">
+        <ion-col style="align-self: center;" size="2" (click)="removeAttachment(i, attachement.id)">
           <ion-icon name="close-circle-outline"></ion-icon>
         </ion-col>
       </ion-row>
