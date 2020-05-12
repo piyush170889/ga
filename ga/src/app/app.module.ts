@@ -15,6 +15,7 @@ import { DataService } from './core/dataservices/data.service';
 import { Camera } from '@ionic-native/camera/ngx';
 import { LogoutComponent } from './logout/logout.component';
 import { TncComponent } from './tnc/tnc.component';
+import { Utility } from './core/utility';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { TncComponent } from './tnc/tnc.component';
     SplashScreen,
     DataService,
     Camera,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    Utility
   ],
   bootstrap: [AppComponent]
 })

@@ -71,18 +71,13 @@ export class LoginaltPage implements OnInit {
         (response: any) => {
           console.log('Response = ' + JSON.stringify(response));
 
-          let res: any = JSON.parse(JSON.stringify(response));
-          console.log('res = ', res);
-
-          if (res.responseMessage.status == 200) {
+          if (this.utility.isSuccessResponse(response)) {
             // Store User Info in localstorage
             console.log('userInfo = ', response.response);
 
             localStorage.setItem(ApplicationConstants.LS_USER_INFO, JSON.stringify(response.response));
 
             this.router.navigateByUrl('home');
-          } else {
-            alert(res.responseMessage.message);
           }
         },
         (err) => {

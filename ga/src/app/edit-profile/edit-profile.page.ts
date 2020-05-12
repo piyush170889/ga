@@ -19,6 +19,8 @@ export class EditProfilePage implements OnInit {
   attachments: string[] = [];
   user: any = {};
   // @ViewChild(ToolbarComponent, { static: false }) toolbarChildComponent: ToolbarComponent;
+  qualificationMasterData: any[] = [];
+  cityMasterData: any[] = [];
 
   constructor(
     private router: Router,
@@ -43,6 +45,29 @@ export class EditProfilePage implements OnInit {
       mobile3: [this.user.mobile3, Validators.required],
       // password: ['', Validators.required]
     });
+
+    this.dataService.get({ url: ServerUrl.MASTERS, isLoader: true })
+      .subscribe(
+        (response: any) => {
+
+          if (this.utility.isSuccessResponse(response)) {
+
+            let masterDataList: any[] = response.response;
+
+            masterDataList.forEach(
+              (masterData: any) => {
+                if (masterData.MASTER_TYPE == 'QUAL')
+                  this.qualificationMasterData.push(masterData);
+                else if (masterData.MASTER_TYPE == 'CITY')
+                  this.cityMasterData.push(masterData);
+              }
+            );
+
+            // this.formGroup.controls['qualification'].setValue(this.user.qualification);
+            // this.formGroup.controls['city'].setValue(this.user.city);
+          }
+        }
+      );
   }
 
   ngOnInit() {
@@ -116,6 +141,19 @@ export class EditProfilePage implements OnInit {
 
   updateUserData() {
 
+    let mobile1: String = new String(this.formGroup.controls['mobile1'].value == null ? '' : this.formGroup.controls['mobile1'].value);
+    let mobile2: String = new String(this.formGroup.controls['mobile2'].value == null ? '' : this.formGroup.controls['mobile2'].value);
+    let mobile3: String = new String(this.formGroup.controls['mobile3'].value == null ? '' : this.formGroup.controls['mobile3'].value);
+
+    if (
+      mobile1.length != 10
+      || (mobile2.length > 0 && mobile2.length != 10)
+      || (mobile3.length > 0 && mobile3.length != 10)
+    ) {
+      alert('Please enter mobile no with 10 digits');
+      return false;
+    }
+
     console.log('updateUserData() called');
     console.log(this.formGroup.value);
     console.log('Attachments = ');
@@ -129,7 +167,8 @@ export class EditProfilePage implements OnInit {
       .subscribe(
         (response) => {
           console.log('Response = ' + JSON.stringify(response));
-          alert('User details updated successfully');
+          if (this.utility.isSuccessResponse(response))
+            alert('User details updated successfully');
         },
         (err) => {
           console.log(err);
@@ -159,7 +198,20 @@ export class EditProfilePage implements OnInit {
         .subscribe(
           (response) => {
             console.log('Resposne = ', response);
-            this.attachments.splice(i, 1);
+
+            if (this.utility.isSuccessResponse(response)) {
+              this.attachments.splice(i, 1);
+
+              let userAttachmentLength = this.user.attachments.length;
+              for (let i = 0; i < userAttachmentLength; i++) {
+                if (this.user.attachments[i].photoNo == photoNo) {
+                  this.user.attachments.splice(i, 1);
+                  break;
+                }
+              }
+
+              alert('Deleted Successfully');
+            }
           }
         );
     }
@@ -193,31 +245,34 @@ export class EditProfilePage implements OnInit {
           .subscribe(
             (response: any) => {
               console.log('response = ', response);
-              this.user = response.response[0];
 
-              this.formGroup.controls['id'].setValue(this.user.id);
-              this.formGroup.controls['first_name'].setValue(this.user.first_name);
-              this.formGroup.controls['last_name'].setValue(this.user.last_name);
-              this.formGroup.controls['gender'].setValue(this.user.gender);
-              this.formGroup.controls['city'].setValue(this.user.city);
-              this.formGroup.controls['dob'].setValue(this.user.dob);
-              this.formGroup.controls['qualification'].setValue(this.user.qualification);
-              this.formGroup.controls['active'].setValue(this.user.active);
-              this.formGroup.controls['mobile1'].setValue(this.user.mobile1);
-              this.formGroup.controls['mobile2'].setValue(this.user.mobile2);
-              this.formGroup.controls['mobile3'].setValue(this.user.mobile3);
+              if (this.utility.isSuccessResponse(response)) {
+                this.user = response.response[0];
 
-              this.attachments = this.user.attachments.filter(
-                (attach) => {
-                  return (attach.saved_file_name != '');
-                }
-              );
-              // .array.forEach(attachement => {
-              //   let downloadUrl: string = '/download.php?id=' + attachement.id;
-              //   this.attachments.push(downloadUrl);
-              // });
+                this.formGroup.controls['id'].setValue(this.user.id);
+                this.formGroup.controls['first_name'].setValue(this.user.first_name);
+                this.formGroup.controls['last_name'].setValue(this.user.last_name);
+                this.formGroup.controls['gender'].setValue(this.user.gender);
+                this.formGroup.controls['city'].setValue(this.user.city);
+                this.formGroup.controls['dob'].setValue(this.user.dob);
+                this.formGroup.controls['qualification'].setValue(this.user.qualification);
+                this.formGroup.controls['active'].setValue(this.user.active);
+                this.formGroup.controls['mobile1'].setValue(this.user.mobile1);
+                this.formGroup.controls['mobile2'].setValue(this.user.mobile2);
+                this.formGroup.controls['mobile3'].setValue(this.user.mobile3);
 
-              alert('Certificate uplaoded successfully')
+                this.attachments = this.user.attachments.filter(
+                  (attach) => {
+                    return (attach.saved_file_name != '');
+                  }
+                );
+                // .array.forEach(attachement => {
+                //   let downloadUrl: string = '/download.php?id=' + attachement.id;
+                //   this.attachments.push(downloadUrl);
+                // });
+
+                alert('Certificate uplaoded successfully');
+              }
             },
             (err) => {
               console.log('Error', err);

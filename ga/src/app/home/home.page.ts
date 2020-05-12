@@ -29,8 +29,10 @@ export class HomePage {
         (response: any) => {
           console.log('User Listing = ', response);
 
-          this.users = response.response;
-          this.usersOrg = response.response;
+          if (this.utility.isSuccessResponse(response)) {
+            this.users = response.response;
+            this.usersOrg = response.response;
+          }
         }
       );
   }

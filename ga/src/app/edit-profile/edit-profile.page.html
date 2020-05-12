@@ -98,15 +98,16 @@
             City <ion-text color="danger">*</ion-text>
           </ion-label>
           <ion-select placeholder="City" formControlName="city">
-            <ion-select-option value="PUN">Pune</ion-select-option>
-            <ion-select-option value="KOP">Kopargaon</ion-select-option>
-            <ion-select-option value="NSK">Nashik</ion-select-option>
+            <!-- <ion-select-option value="">Select A City</ion-select-option> -->
+            <ion-select-option *ngFor="let city of cityMasterData" [value]="city.DISP_NM">
+              {{city.DISP_NM}}
+            </ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
     </ion-row>
 
-    <h6>Eduction Information</h6>
+    <h6>Education Information</h6>
 
     <ion-row>
       <ion-col size="12">
@@ -114,7 +115,12 @@
           <ion-label position="floating">
             Qualification <ion-text color="danger">*</ion-text>
           </ion-label>
-          <ion-input type="text" formControlName="qualification"></ion-input>
+          <ion-select formControlName="qualification">
+            <!-- <ion-select-option value="">Select A Qualification</ion-select-option> -->
+            <ion-select-option *ngFor="let qual of qualificationMasterData" [value]="qual.DISP_NM">
+              {{qual.DISP_NM}}
+            </ion-select-option>
+          </ion-select>
         </ion-item>
       </ion-col>
     </ion-row>
@@ -138,7 +144,8 @@
           <img width="150px" height="150px" [src]="getDownloadLink(attachement.saved_file_name)" alt="{{i}}" />
           <!-- <img width="50" height="50" src="https://i.stack.imgur.com/l60Hf.png" alt="{{i}}" /> -->
         </ion-col>
-        <ion-col style="align-self: center;" size="2" (click)="removeAttachment(i, attachement.id, attachement.photoNo)">
+        <ion-col style="align-self: center;" size="2"
+          (click)="removeAttachment(i, attachement.id, attachement.photoNo)">
           <ion-icon name="close-circle-outline"></ion-icon>
         </ion-col>
       </ion-row>

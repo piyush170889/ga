@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DataService } from '../core/dataservices/data.service';
 import { ServerUrl } from '../core/constants/server-url';
 import { ApplicationConstants } from '../core/constants/application-constants';
+import { Utility } from '../core/utility';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private dataService: DataService
+    private dataService: DataService,
+    private utility: Utility
   ) {
 
     this.formGroup = this.fb.group(
@@ -44,18 +46,13 @@ export class LoginComponent implements OnInit {
         (response: any) => {
           console.log('Response = ' + JSON.stringify(response));
 
-          let res: any = JSON.parse(JSON.stringify(response));
-          console.log('res = ', res);
-
-          if (res.responseMessage.status == 200) {
+          if (this.utility.isSuccessResponse(response)) {
             // Store User Info in localstorage
             console.log('userInfo = ', response.response);
 
             localStorage.setItem(ApplicationConstants.LS_USER_INFO, JSON.stringify(response.response));
 
             this.router.navigateByUrl('home');
-          } else {
-            alert(res.responseMessage.message);
           }
         },
         (err) => {

@@ -69,9 +69,23 @@ export class RegisterPage implements OnInit {
 
     console.log('registerUser() called');
 
+    let mobile1: String = new String(this.formGroup.controls['mobile1'].value == null ? '' : this.formGroup.controls['mobile1'].value);
+    let mobile2: String = new String(this.formGroup.controls['mobile2'].value == null ? '' : this.formGroup.controls['mobile2'].value);
+    let mobile3: String = new String(this.formGroup.controls['mobile3'].value == null ? '' : this.formGroup.controls['mobile3'].value);
+
+    if (
+      mobile1.length != 10
+      || (mobile2.length > 0 && mobile2.length != 10)
+      || (mobile3.length > 0 && mobile3.length != 10)
+    ) {
+      alert('Please enter mobile no with 10 digits');
+      return false;
+    }
+
     if (this.attachements.length > 0) {
 
       if (this.profileImage != '') {
+
         console.log(this.formGroup.value);
         console.log('Attachments = ');
         console.log(this.attachements);
@@ -123,12 +137,14 @@ export class RegisterPage implements OnInit {
               (response: any) => {
                 console.log('response. = ', response);
 
-                // Store User Info in localstorage
-                console.log('userInfo = ', response.response);
+                if (this.utility.isSuccessResponse(response)) {
+                  // Store User Info in localstorage
+                  console.log('userInfo = ', response.response);
 
-                localStorage.setItem(ApplicationConstants.LS_USER_INFO, JSON.stringify(response.response));
+                  localStorage.setItem(ApplicationConstants.LS_USER_INFO, JSON.stringify(response.response));
 
-                this.router.navigateByUrl('home');
+                  this.router.navigateByUrl('home');
+                }
               },
               (err) => {
                 console.log(err);
