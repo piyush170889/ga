@@ -17,7 +17,8 @@ export class RegisterPage implements OnInit {
   formGroup: FormGroup;
   attachements: string[] = [];
   profileImage: string = '';
-  qualificationMasterData: any[] = ['Qual1', 'Qual2', 'Qual3'];
+  qualificationMasterData: any[] = [];
+  cityMasterData: any[] = [];
 
   constructor(
     private router: Router,
@@ -39,6 +40,26 @@ export class RegisterPage implements OnInit {
       mobile3: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+    this.dataService.get({ url: ServerUrl.MASTERS, isLoader: true })
+      .subscribe(
+        (response: any) => {
+
+          if (this.utility.isSuccessResponse(response)) {
+
+            let masterDataList: any[] = response.response;
+
+            masterDataList.forEach(
+              (masterData: any) => {
+                if (masterData.MASTER_TYPE == 'QUAL')
+                  this.qualificationMasterData.push(masterData);
+                else if (masterData.MASTER_TYPE == 'CITY')
+                  this.cityMasterData.push(masterData);
+              }
+            );
+          }
+        }
+      )
   }
 
   ngOnInit() {

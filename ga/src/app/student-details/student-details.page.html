@@ -24,7 +24,7 @@
 
     <ion-slides class="home-slide" autoplay="3000" loop>
 
-      <ion-slide *ngFor="let attachment of user.attachments">
+      <ion-slide *ngFor="let attachment of attachmentsToPass">
         <div class="slide">
           <img [src]="getDownloadLink(attachment.saved_file_name)" />
         </div>

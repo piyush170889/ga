@@ -10,17 +10,26 @@ import { Utility } from '../core/utility';
 })
 export class StudentDetailsPage implements OnInit {
 
-  @Input() user: any;
+  @Input() user: any = {};
   @Input() doShowDetails: boolean;
+  attachmentsToPass: any[] = [];
 
   constructor(
     private modalCtrl: ModalController,
     private utlitiy: Utility
-  ) { }
+  ) {
+
+  }
 
   ngOnInit() {
     console.log('users = ' + JSON.stringify(this.user));
     console.log('users = ' + JSON.stringify(this.doShowDetails));
+    this.user.attachments.filter(
+      (attach) => {
+        if (attach.saved_file_name != '')
+          this.attachmentsToPass.push(attach);
+      }
+    );
   }
 
   close() {

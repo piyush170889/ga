@@ -84,7 +84,10 @@ export class Utility {
                     if (res.ok) {
 
                         console.log('res = ', res);
-                        isUploaded = true;
+                        let resBody = JSON.parse(await res.text());
+                        console.log('resBody = ', resBody);
+                        if (this.isSuccessResponse(resBody))
+                            isUploaded = true;
                     } else {
                         console.error(res);
                         alert('Failed to upload document');
@@ -105,5 +108,14 @@ export class Utility {
     getDownloadLink(fileName: string, docType: string) {
 
         return ServerUrl.MAIN + 'download.php?fileName=' + fileName + '&docType=' + docType;
+    }
+
+    isSuccessResponse(response: any) {
+        if (response.responseMessage.status == 200) {
+            return true;
+        } else {
+            alert(response.responseMessage.message);
+            return false;
+        }
     }
 }

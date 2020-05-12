@@ -107,7 +107,11 @@ export class EditProfilePage implements OnInit {
     this.formGroup.controls['mobile2'].setValue(this.user.mobile2);
     this.formGroup.controls['mobile3'].setValue(this.user.mobile3);
 
-    this.attachments = this.user.attachments;
+    this.attachments = this.user.attachments.filter(
+      (attach) => {
+        return (attach.saved_file_name != '');
+      }
+    );
   }
 
   updateUserData() {
@@ -134,15 +138,21 @@ export class EditProfilePage implements OnInit {
       );
   }
 
-  removeAttachment(i: number, attachmentId: string) {
+  removeAttachment(i: number, attachmentId: string, photoNo: string) {
 
-    console.log('Index To Remove = ' + i + ', attachmentId = ' + attachmentId);
+    console.log('Index To Remove = ' + i + ', attachmentId = '
+      + attachmentId + ', photoNo = ' + photoNo);
+
+    if (this.attachments.length <= 1) {
+      alert('There should atleast be 1 Qualification certificate. Cannot delete this file');
+      return false;
+    }
 
     let confirmDelete = confirm('Are you sure you want to delete this item?');
 
     if (confirmDelete) {
 
-      let deleteApiEndpoint: string = ServerUrl.DELETE_ATTC + attachmentId;
+      let deleteApiEndpoint: string = ServerUrl.DELETE_ATTC + attachmentId + '&photoNo=' + photoNo;
       console.log('deleteApiEndpoint = ', deleteApiEndpoint);
 
       this.dataService.delete({ url: deleteApiEndpoint, isLoader: true })
@@ -169,6 +179,9 @@ export class EditProfilePage implements OnInit {
       fd.append('id', this.user.id);
       fd.append('doc_type', 'ATTC');
 
+      let photoNo = this.getPhotoNo(this.user.attachments);
+      fd.append('photoNo', photoNo.toString());
+
       let uploadDocApiEndpoint: string = ServerUrl.MAIN + ServerUrl.UPLOAD_DOC;
       let isUploaded: boolean = await this.utility.uploadFormData(uploadDocApiEndpoint, fd);
 
@@ -194,7 +207,11 @@ export class EditProfilePage implements OnInit {
               this.formGroup.controls['mobile2'].setValue(this.user.mobile2);
               this.formGroup.controls['mobile3'].setValue(this.user.mobile3);
 
-              this.attachments = this.user.attachments;
+              this.attachments = this.user.attachments.filter(
+                (attach) => {
+                  return (attach.saved_file_name != '');
+                }
+              );
               // .array.forEach(attachement => {
               //   let downloadUrl: string = '/download.php?id=' + attachement.id;
               //   this.attachments.push(downloadUrl);
@@ -229,5 +246,33 @@ export class EditProfilePage implements OnInit {
 
   getDownloadLink(saved_file_name) {
     return this.utility.getDownloadLink(saved_file_name, 'ATTC');
+  }
+
+  getPhotoNo(attachments: any[]) {
+
+    console.log('getPhotoNo called');
+
+    // let attachList: any[] = attachments.map(a => a.photoNo);
+    // attachList.sort(
+    //   (a, b) => { return (a > b ? 1 : -1) }
+    // );
+
+    let photoNo = 5;
+    // for (let i = 0; i < 5; i++) {
+    //   if (attachList[i + 1] > (attachList[i] + 1)) {
+    //     photoNo = (attachList[i] + 1);
+    //     break;
+    //   }
+    // }
+
+    let attachmentLength: number = attachments.length;
+    for (let i = 1; i < attachmentLength; i++) {
+      if (attachments[i - 1].saved_file_name == '') {
+        photoNo = i;
+        break;
+      }
+    }
+
+    return photoNo;
   }
 }

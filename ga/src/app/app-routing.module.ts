@@ -3,6 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
+import { TncComponent } from './tnc/tnc.component';
 
 
 const routes: Routes = [
@@ -21,7 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'tnc',
-    loadChildren: () => import('./tnc/tnc.module').then(m => m.TncPageModule), 
+    component: TncComponent
   },
   {
     path: 'register',

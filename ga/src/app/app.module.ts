@@ -14,12 +14,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './core/dataservices/data.service';
 import { Camera } from '@ionic-native/camera/ngx';
 import { LogoutComponent } from './logout/logout.component';
+import { TncComponent } from './tnc/tnc.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    LogoutComponent
+    LogoutComponent,
+    TncComponent
   ],
   entryComponents: [],
   imports: [

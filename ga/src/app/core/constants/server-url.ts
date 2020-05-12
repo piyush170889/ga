@@ -16,4 +16,6 @@ export class ServerUrl {
     public static DELETE_ATTC: string = 'delete.php?id=';
 
     public static UPLOAD_DOC: string = 'uploadFile.php';
+
+    public static MASTERS: string = 'masters.php';
 }

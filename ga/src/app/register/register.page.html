@@ -111,9 +111,10 @@
             City <ion-text color="danger">*</ion-text>
           </ion-label>
           <ion-select placeholder="City" formControlName="city">
-            <ion-select-option value="PUN">Pune</ion-select-option>
-            <ion-select-option value="KOP">Kopargaon</ion-select-option>
-            <ion-select-option value="NSK">Nashik</ion-select-option>
+            <!-- <ion-select-option value="">Select A City</ion-select-option> -->
+            <ion-select-option *ngFor="let city of cityMasterData" [value]="city.DISP_NM">
+              {{city.DISP_NM}}
+            </ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
@@ -147,9 +148,10 @@
             Qualification <ion-text color="danger">*</ion-text>
           </ion-label>
           <ion-select formControlName="qualification">
-            <ion-option *ngFor="let qual of qualificationMasterData" [value]="qual.displayText">
-              {{qual.displayText}}
-            </ion-option>
+            <!-- <ion-select-option value="">Select A Qualification</ion-select-option> -->
+            <ion-select-option *ngFor="let qual of qualificationMasterData" [value]="qual.DISP_NM">
+              {{qual.DISP_NM}}
+            </ion-select-option>
           </ion-select>
         </ion-item>
       </ion-col>
